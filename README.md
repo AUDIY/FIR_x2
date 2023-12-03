@@ -10,6 +10,10 @@ You should prepare code examples or your RTL you need.
 2. FIR filter length must be equals to (MCLK_I frequency)/(Sampling frequency)
 3. Test benches are used on Questa - Intel FPGA Starter Edition. So there are no stop command in them.
 
+## Verified Devices
+1. Efinix T20F256I4 on Trion T20 BGA256 Development Kit( https://www.efinixinc.com/products-devkits-triont20.html )
+2. Intel MAX10 10M50DAF484C7G on terasIC DE10-Lite ( https://www.terasic.com.tw/cgi-bin/page/archive.pl?Language=English&No=1021 )
+
 ## License
 Copyright AUDIY 2023.
 
