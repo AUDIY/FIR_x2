@@ -1,6 +1,9 @@
 # FIR_x2
 FPGA based PCM oversampling FIR filter (oversample ratio: 2).
 
+## Usage
+This is under construction...
+
 ## Notes
 1. Simple dual-port RAM (simple_dual_port_ram) & Single-port ROM (single_port_rom) modules are necessary but the author used code examples from FPGA vendor.
 You should prepare code examples or your RTL you need.
