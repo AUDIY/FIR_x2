@@ -5,6 +5,7 @@ FPGA based PCM oversampling FIR filter (oversample ratio: 2).
 ### Simulation
 1. Compile each module and <module_name>_tb.v (memory initialization file & test signals are necessary on some modules).
 2. Start Simulation.
+   
 ### Real Machine
 1. Add all modules (except <module_name>_tb.v) and memory initialization file into your project.
 2. Change parameters depending on your audio data settings (ex. MCLK frequency, BCK frequency).
@@ -19,6 +20,10 @@ FPGA based PCM oversampling FIR filter (oversample ratio: 2).
 ## Verified Devices
 1. Efinix T20F256I4 on Trion T20 BGA256 Development Kit( https://www.efinixinc.com/products-devkits-triont20.html )
 2. Intel MAX10 10M50DAF484C7G on terasIC DE10-Lite ( https://www.terasic.com.tw/cgi-bin/page/archive.pl?Language=English&No=1021 )
+
+## Examples
+1. Oversample_x2_DE10Lite.qar for DE10-Lite & Quartus-Prime Lite v22.1 ( https://github.com/AUDIY/FIR_x2/tree/main/10_Example/01_DE10-Lite )
+2. Oversample_x2_T20F256DevKit.zip for T20F256 Dev Kit & Efinity IDE v2023.1.150.6.14 ( https://github.com/AUDIY/FIR_x2/tree/main/10_Example/02_T20F256DevKit )
 
 ## License
 Copyright AUDIY 2023.
