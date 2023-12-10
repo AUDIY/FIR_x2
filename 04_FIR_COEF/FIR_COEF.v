@@ -3,9 +3,9 @@
 *
 * FIR Coefficients ROM.
 *
-* Version: 0.14
+* Version: 0.15
 * Author : AUDIY
-* Date   : 2023/12/03
+* Date   : 2023/12/10
 *
 * Port
 *   Input
@@ -52,7 +52,7 @@ module FIR_COEF #(
     parameter DATA_WIDTH = 32,
     parameter ADDR_WIDTH = 9,
     parameter OUTPUT_REG = "TRUE",
-    parameter RAM_INIT_FILE = "FIR512_x2_48000.hex"
+    parameter RAM_INIT_FILE = "FIR512_x2_48000.inithex"
 )
 (
     /* Input Port Definition */
@@ -90,15 +90,15 @@ module FIR_COEF #(
     defparam u_SPROM_CONT.ROM_ADDR_WIDTH = ADDR_WIDTH;
 
     /* Single Port ROM */
-    single_port_rom u_single_port_rom(
-        .clk(MCLK_I),
-        .addr(CADDR),
-        .data(COEF_O)
+    SPROM u_SPROM(
+        .CLK_I(MCLK_I),
+        .RADDR_I(CADDR),
+        .RDATA_O(COEF_O)
     );
-    defparam u_single_port_rom.DATA_WIDTH = DATA_WIDTH;
-    defparam u_single_port_rom.ADDR_WIDTH = ADDR_WIDTH;
-    defparam u_single_port_rom.OUTPUT_REG = OUTPUT_REG;
-    defparam u_single_port_rom.RAM_INIT_FILE = RAM_INIT_FILE;
+    defparam u_SPROM.DATA_WIDTH = DATA_WIDTH;
+    defparam u_SPROM.ADDR_WIDTH = ADDR_WIDTH;
+    defparam u_SPROM.OUTPUT_REG = OUTPUT_REG;
+    defparam u_SPROM.ROM_INIT_FILE = RAM_INIT_FILE;
 
     /* Add LRCKx_O Output Register, 2023/08/12 */
     always @ (posedge MCLK_I) begin
