@@ -12,8 +12,7 @@ FPGA based PCM oversampling FIR filter (oversample ratio: 2).
 4. Confirm actual operation.
 
 ## Notes
-1. Single-port ROM (single_port_rom) modules are necessary but the author used code examples from FPGA vendor.
-You should prepare code examples or your RTL you need.
+1. Single-Port ROM (SPROM.v) & Simple Dual-Port RAM (SDPRAM_SINGLECLK.v) are provided but it is recommended to use each-vendor official IP.
 2. FIR filter length must be equals to (MCLK_I frequency)/(Sampling frequency)
 3. Test benches are used on Questa - Intel FPGA Starter Edition. So there are no stop command in them.
 
