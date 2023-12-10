@@ -3,9 +3,9 @@
 *
 * Input DATA Buffer with RAM
 *
-* Version: 0.11
+* Version: 0.12
 * Author : AUDIY
-* Date   : 2023/12/03
+* Date   : 2023/12/10
 *
 * Port
 *   Input
@@ -86,20 +86,19 @@ module DATA_BUFFER #(
     defparam u_DPRAM_CONT.ADDR_WIDTH = ADDR_WIDTH;
 
     /* Simple Dual Port RAM */
-    simple_dual_port_ram u_simple_dual_port_ram(
-        .wclk(MCLK_I),
-        .we(WEN),
-        .waddr(WADDR),
-        .wdata(WDATA_I),
-        .rclk(MCLK_I),
-        .re(REN),
-        .raddr(RADDR),
-        .rdata(RDATA_O)
+    SDPRAM_SINGLECLK u_SDPRAM_SINGLECLK(
+        .CLK_I(MCLK_I),
+        .WENABLE_I(WEN),
+        .WADDR_I(WADDR),
+        .WDATA_I(WDATA_I),
+        .RENABLE_I(REN),
+        .RADDR_I(RADDR),
+        .RDATA_O(RDATA_O)
     );
-    defparam u_simple_dual_port_ram.DATA_WIDTH = DATA_WIDTH;
-    defparam u_simple_dual_port_ram.ADDR_WIDTH = ADDR_WIDTH;
-    defparam u_simple_dual_port_ram.OUTPUT_REG = OUTPUT_REG;
-    defparam u_simple_dual_port_ram.RAM_INIT_FILE = RAM_INIT_FILE;
+    defparam u_SDPRAM_SINGLECLK.DATA_WIDTH = DATA_WIDTH;
+    defparam u_SDPRAM_SINGLECLK.ADDR_WIDTH = ADDR_WIDTH;
+    defparam u_SDPRAM_SINGLECLK.OUTPUT_REG = OUTPUT_REG;
+    defparam u_SDPRAM_SINGLECLK.RAM_INIT_FILE = RAM_INIT_FILE;
     
 
 endmodule
