@@ -7,7 +7,7 @@ FPGA based PCM oversampling FIR filter (oversample ratio: 2).
 2. Start Simulation.
    
 ### Real Machine
-1. Add all modules (except <module_name>_tb.v) and memory initialization file into your project.
+1. Add all modules (except <module_name>_tb.v other than test bench for DUT) and memory initialization file into your project.
 2. Change parameters depending on your audio data settings (ex. MCLK frequency, BCK frequency).
 3. Synthesize, place & route to your FPGA.
 4. Confirm actual operation.
