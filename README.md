@@ -22,11 +22,13 @@ FPGA based PCM oversampling FIR filter (oversample ratio: 2).
 1. Efinix T20F256I4 on Trion T20 BGA256 Development Kit( https://www.efinixinc.com/products-devkits-triont20.html )
 2. Intel MAX10 10M50DAF484C7G on terasIC DE10-Lite ( https://www.terasic.com.tw/cgi-bin/page/archive.pl?Language=English&No=1021 )
 3. Intel Cyclone IV E EP4CE22F17C6N on terasIC DE0-Nano ( https://www.terasic.com.tw/cgi-bin/page/archive.pl?Language=English&CategoryNo=165&No=593#contents )
+4. Gowin Arora GW2A-LV18PG256C8/I7 on Sipeed Tang Primer 20K & Dock ext-board ( https://wiki.sipeed.com/hardware/en/tang/tang-primer-20k/primer-20k.html )
 
 ## Examples
 1. Oversample_x2_DE10Lite.qar for DE10-Lite & Quartus-Prime Lite v22.1 ( https://github.com/AUDIY/FIR_x2/tree/main/10_Example/01_DE10-Lite )
 2. Oversample_x2_T20F256DevKit.zip for T20F256 Dev Kit & Efinity IDE v2023.1.150.6.14 ( https://github.com/AUDIY/FIR_x2/tree/main/10_Example/02_T20F256DevKit )
 3. Oversample_x2_DE0Nano.qar for DE0-Nano & Quartus-Prime Lite v22.1 ( https://github.com/AUDIY/FIR_x2/tree/main/10_Example/03_DE0-Nano )
+4. Oversample_x2_Tang_Primer_20K.gar for Tang Primer 20K & Gowin EDA v1.9.8.11 Education ( https://github.com/AUDIY/FIR_x2/tree/main/10_Example/04_Tang_Primer_20K )
 
 ## License
 Copyright AUDIY 2023.
