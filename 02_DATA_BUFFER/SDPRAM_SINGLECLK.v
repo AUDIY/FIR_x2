@@ -5,7 +5,7 @@
 *
 * Version: 0.11
 * Author : AUDIY
-* Date   : 2023/12/23
+* Date   : 2023/12/21
 *
 * Port
 *   Input
@@ -25,24 +25,18 @@
 *       OUTPUT_REG   : Output Register Enable
 *       RAM_INIT_FILE: RAM Initialization File
 *
-* License
+* License under CERN-OHL-P v2
 --------------------------------------------------------------------------------
 | Copyright AUDIY 2023.                                                        |
 |                                                                              |
-| This source describes Open Hardware and is licensed under the CERN-OHL-W v2. |
+| This source describes Open Hardware and is licensed under the CERN-OHL-P v2. |
 |                                                                              |
 | You may redistribute and modify this source and make products using it under |
-| the terms of the CERN-OHL-W v2 (https:/cern.ch/cern-ohl).                    |
+| the terms of the CERN-OHL-P v2 (https:/cern.ch/cern-ohl).                    |
 |                                                                              |
 | This source is distributed WITHOUT ANY EXPRESS OR IMPLIED WARRANTY,          |
 | INCLUDING OF MERCHANTABILITY, SATISFACTORY QUALITY AND FITNESS FOR A         |
-| PARTICULAR PURPOSE. Please see the CERN-OHL-W v2 for applicable conditions.  |
-|                                                                              |
-| Source location: https://github.com/AUDIY/FIR_x2                             |
-|                                                                              |
-| As per CERN-OHL-W v2 section 4.1, should You produce hardware based on these |
-| sources, You must maintain the Source Location visible on the external case  |
-| of the FIR_x2 or other products you make using this source.                  |
+| PARTICULAR PURPOSE. Please see the CERN-OHL-P v2 for applicable conditions.  |
 --------------------------------------------------------------------------------
 *
 -----------------------------------------------------------------------------*/
@@ -104,5 +98,12 @@ module SDPRAM_SINGLECLK #(
 		else
 			assign RDATA_O = RDATA_REG_1P;
 	endgenerate
+
+    /* Assertions */
+    // Assertion #0: When RADDR_I and WADDR_I are the same, either or both of WENABLE_I and RENABLE returns 1'b0.
+    // psl assert always ((RADDR_I == WADDR_I) -> ((WENABLE_I & RENABLE_I) == 1'b0)) @ (posedge CLK_I);
+
+    // Assertion #1: When both of WENABLE_I and RENABLE_I returns 1'b1, RADDR_I and WADDR_I must be different.
+    // psl assert always ((WENABLE_I & RENABLE_I == 1'b1) -> (WADDR_I != RADDR_I)) @(posedge CLK_I);
 
 endmodule
