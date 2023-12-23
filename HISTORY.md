@@ -7,3 +7,6 @@
 ## 2023/12/18
 1. Add DE0-Nano Example Project.
 2. Add Tang Primer 20K Example Project.
+
+## 2023/12/23
+1. Change License from CERN-OHL-S v2 to CERN-OHL-W v2.
