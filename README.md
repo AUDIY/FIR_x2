@@ -1,6 +1,10 @@
 # FIR_x2
 FPGA based PCM oversampling FIR filter (oversample ratio: 2).
 
+## Japanese Page
+### Summary
+https://audio-diy.hatenablog.com/entry/FIR_x2_summary
+
 ## Usage
 ### Simulation
 1. Compile each module and <module_name>_tb.v (memory initialization file & test signals are necessary on some modules).
