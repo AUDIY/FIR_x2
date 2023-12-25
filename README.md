@@ -4,6 +4,8 @@ FPGA based PCM oversampling FIR filter (oversample ratio: 2).
 ## Japanese Page
 ### Summary
 https://audio-diy.hatenablog.com/entry/FIR_x2_summary
+### How to Use
+https://audio-diy.hatenablog.com/entry/FIR_x2_howtouse
 
 ## Usage
 ### Simulation
