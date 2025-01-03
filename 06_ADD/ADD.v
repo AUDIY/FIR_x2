@@ -26,7 +26,7 @@
 *
 * License
 --------------------------------------------------------------------------------
-| Copyright AUDIY 2023.                                                        |
+| Copyright AUDIY 2023 - 2025.                                                 |
 |                                                                              |
 | This source describes Open Hardware and is licensed under the CERN-OHL-W v2. |
 |                                                                              |
