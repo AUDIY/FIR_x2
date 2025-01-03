@@ -37,7 +37,7 @@ https://audio-diy.hatenablog.com/entry/FIR_x2_howtouse
 4. Oversample_x2_Tang_Primer_20K.gar for Tang Primer 20K & Gowin EDA v1.9.8.11 Education ( https://github.com/AUDIY/FIR_x2/tree/main/10_Example/04_Tang_Primer_20K )
 
 ## License
-Copyright AUDIY 2023.
+Copyright AUDIY 2023 - 2025.
 
 This source describes Open Hardware and is licensed under the CERN-OHL-W v2
 
