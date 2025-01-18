@@ -10,3 +10,6 @@
 
 ## 2023/12/23
 1. Change License from CERN-OHL-S v2 to CERN-OHL-W v2.
+
+## 2025/01/18
+1. Add simulator waveform example to [README.md](/README.md).
