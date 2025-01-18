@@ -34,10 +34,10 @@ https://audio-diy.hatenablog.com/entry/FIR_x2_howtouse
 
 ## Examples
 1. [Oversample_x2_DE10Lite.qar for DE10-Lite & Quartus-Prime Lite v22.1](/10_Example/01_DE10-Lite)
-2. Oversample_x2_T20F256DevKit.zip for T20F256 Dev Kit & Efinity IDE v2023.1.150.6.14 ( /10_Example/02_T20F256DevKit )
-3. Oversample_x2_DE0Nano.qar for DE0-Nano & Quartus-Prime Lite v22.1 ( /10_Example/03_DE0-Nano )
-4. Oversample_x2_Tang_Primer_20K.gar for Tang Primer 20K & Gowin EDA v1.9.8.11 Education ( /10_Example/04_Tang_Primer_20K )
-5. Oversample_x2_Cmod_S7.xpr.zip for Cmod S7 & Vivado v2024.1.2 ( /10_Example/05_Cmod_S7 )
+2. [Oversample_x2_T20F256DevKit.zip for T20F256 Dev Kit & Efinity IDE v2023.1.150.6.14](/10_Example/02_T20F256DevKit)
+3. [Oversample_x2_DE0Nano.qar for DE0-Nano & Quartus-Prime Lite v22.1](/10_Example/03_DE0-Nano)
+4. [Oversample_x2_Tang_Primer_20K.gar for Tang Primer 20K & Gowin EDA v1.9.8.11 Education](/10_Example/04_Tang_Primer_20K)
+5. [Oversample_x2_Cmod_S7.xpr.zip for Cmod S7 & Vivado v2024.1.2](/10_Example/05_Cmod_S7)
 
 ## License
 Copyright AUDIY 2023 - 2025.
