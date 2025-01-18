@@ -13,3 +13,6 @@
 
 ## 2025/01/18
 1. Add simulator waveform example to [README.md](/README.md).
+
+## 2025/01/19
+1. Add Cmod S7 Example Project.
