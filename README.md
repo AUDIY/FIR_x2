@@ -1,5 +1,6 @@
 # FIR_x2
-FPGA based PCM oversampling FIR filter (oversample ratio: 2).
+FPGA based PCM oversampling FIR filter (oversample ratio: 2).  
+[Image 1](/Images/image1.png)
 
 ## Japanese Page
 ### Summary
