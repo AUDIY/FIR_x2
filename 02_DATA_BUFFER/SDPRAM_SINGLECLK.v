@@ -3,9 +3,9 @@
 *
 * Simple Dual-Port RAM (Single Clock)
 *
-* Version: 0.11
+* Version: 1.00
 * Author : AUDIY
-* Date   : 2023/12/21
+* Date   : 2025/01/20
 *
 * Port
 *   Input
