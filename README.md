@@ -24,6 +24,7 @@ https://audio-diy.hatenablog.com/entry/FIR_x2_howtouse
 2. FIR filter length must be equals to (MCLK_I frequency)/(Sampling frequency)
 3. Test benches are used on Questa - Intel FPGA Starter Edition. So there are no stop command in them.
 4. This project includes asynchronous design now. The author will try to make this completely synchronous design.
+5. When you use in vivado, memory file(.hex) should be changed to data file(.data). 
 
 ## Verified Devices
 1. Efinix T20F256I4 on Trion T20 BGA256 Development Kit( https://www.efinixinc.com/products-devkits-triont20.html )

@@ -3,9 +3,9 @@
 *
 * Input DATA Buffer with RAM
 *
-* Version: 0.13
+* Version: 1.00
 * Author : AUDIY
-* Date   : 2023/12/23
+* Date   : 2025/01/20
 *
 * Port
 *   Input

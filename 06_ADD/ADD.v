@@ -3,9 +3,9 @@
 *
 * Multiplied Data Integrator w/ input & output register.
 *
-* Version: 0.16
+* Version: 1.00
 * Author : AUDIY
-* Date   : 2023/12/23
+* Date   : 2025/01/20
 *
 * Port
 *   Input
