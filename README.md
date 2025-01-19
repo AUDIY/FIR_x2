@@ -31,6 +31,7 @@ https://audio-diy.hatenablog.com/entry/FIR_x2_howtouse
 3. Intel Cyclone IV E EP4CE22F17C6N on terasIC DE0-Nano ( https://www.terasic.com.tw/cgi-bin/page/archive.pl?Language=English&CategoryNo=165&No=593#contents )
 4. Gowin Arora GW2A-LV18PG256C8/I7 on Sipeed Tang Primer 20K & Dock ext-board ( https://wiki.sipeed.com/hardware/en/tang/tang-primer-20k/primer-20k.html )
 5. AMD Spartan-7 XC7S25-1CSGA225C on Digilent Cmod S7 ( https://digilent.com/reference/programmable-logic/cmod-s7/start )
+6. AMD Artix-7 XC7A35T-1CPG236C on Digilent Cmod A7 ( https://digilent.com/reference/programmable-logic/cmod-a7/start )
 
 ## Examples
 1. [Oversample_x2_DE10Lite.qar for DE10-Lite & Quartus-Prime Lite v22.1](/10_Example/01_DE10-Lite)
@@ -38,6 +39,7 @@ https://audio-diy.hatenablog.com/entry/FIR_x2_howtouse
 3. [Oversample_x2_DE0Nano.qar for DE0-Nano & Quartus-Prime Lite v22.1](/10_Example/03_DE0-Nano)
 4. [Oversample_x2_Tang_Primer_20K.gar for Tang Primer 20K & Gowin EDA v1.9.8.11 Education](/10_Example/04_Tang_Primer_20K)
 5. [Oversample_x2_Cmod_S7.xpr.zip for Cmod S7 & Vivado v2024.1.2](/10_Example/05_Cmod_S7)
+6. [Oversample_x2_Cmod_A7.xpr.zip for Cmod A7 & Vivado v2024.1.2](/10_Example/06_Cmod_A7)
 
 ## License
 Copyright AUDIY 2023 - 2025.
