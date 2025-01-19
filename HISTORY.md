@@ -16,3 +16,6 @@
 
 ## 2025/01/19
 1. Add Cmod S7 Example Project.
+
+## 2025/01/20
+1. Add Cmod A7 Example Project.
