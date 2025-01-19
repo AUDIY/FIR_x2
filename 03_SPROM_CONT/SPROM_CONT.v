@@ -3,9 +3,9 @@
 *
 * Single Port ROM Controller to Output Filter Coefficients.
 *
-* Version: 0.18
+* Version: 1.00
 * Author : AUDIY
-* Date   : 2023/12/23
+* Date   : 2025/01/20
 *
 * Port
 *   Input
