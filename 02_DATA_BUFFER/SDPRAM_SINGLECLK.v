@@ -3,9 +3,9 @@
 *
 * Simple Dual-Port RAM (Single Clock)
 *
-* Version: 1.00
+* Version: 0.11
 * Author : AUDIY
-* Date   : 2025/01/20
+* Date   : 2023/12/21
 *
 * Port
 *   Input
@@ -27,7 +27,7 @@
 *
 * License under CERN-OHL-P v2
 --------------------------------------------------------------------------------
-| Copyright AUDIY 2023 - 2025.                                                 |
+| Copyright AUDIY 2023.                                                        |
 |                                                                              |
 | This source describes Open Hardware and is licensed under the CERN-OHL-P v2. |
 |                                                                              |
@@ -62,7 +62,7 @@ module SDPRAM_SINGLECLK #(
 
     /* Local Parameters */
     localparam MEMORY_DEPTH = 2**ADDR_WIDTH;
-    localparam MAX_DATA     = (1 << ADDR_WIDTH) - 1;
+    // localparam MAX_DATA     = (1 << ADDR_WIDTH) - 1;
 
     /* Internal Wire/Register Definition */
     reg [DATA_WIDTH-1:0] RAM[MEMORY_DEPTH-1:0];
@@ -93,10 +93,11 @@ module SDPRAM_SINGLECLK #(
 
     /* Output */
     generate
-		if (OUTPUT_REG == "TRUE")
+		if (OUTPUT_REG == "TRUE") begin : gen_reg2p
 			assign RDATA_O = RDATA_REG_2P;
-		else
+        end else begin : gen_reg1p
 			assign RDATA_O = RDATA_REG_1P;
+        end
 	endgenerate
 
     /* Assertions */

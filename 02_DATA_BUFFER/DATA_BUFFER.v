@@ -3,9 +3,9 @@
 *
 * Input DATA Buffer with RAM
 *
-* Version: 1.00
+* Version: 1.01
 * Author : AUDIY
-* Date   : 2025/01/20
+* Date   : 2025/06/19
 *
 * Port
 *   Input
@@ -72,20 +72,25 @@ module DATA_BUFFER #(
     wire [(ADDR_WIDTH-1):0] RADDR;
 
     /* Dual Port RAM Controller */
-    DPRAM_CONT u_DPRAM_CONT(
+    DPRAM_CONT #(
+        .ADDR_WIDTH(ADDR_WIDTH)
+    ) u_DPRAM_CONT (
         .MCLK_I(MCLK_I),
-        .BCK_I(BCK_I),
         .LRCK_I(LRCK_I),
         .NRST_I(NRST_I),
         .WEN_O(WEN),
         .WADDR_O(WADDR),
-        .RADDR_O(RADDR),
-        .NERR_ADDR_O(REN)
+        .REN_O(REN),
+        .RADDR_O(RADDR)
     );
-    defparam u_DPRAM_CONT.ADDR_WIDTH = ADDR_WIDTH;
 
     /* Simple Dual Port RAM */
-    SDPRAM_SINGLECLK u_SDPRAM_SINGLECLK(
+    SDPRAM_SINGLECLK #(
+        .DATA_WIDTH(DATA_WIDTH),
+        .ADDR_WIDTH(ADDR_WIDTH),
+        .OUTPUT_REG(OUTPUT_REG),
+        .RAM_INIT_FILE(RAM_INIT_FILE)
+    ) u_SDPRAM_SINGLECLK (
         .CLK_I(MCLK_I),
         .WENABLE_I(WEN),
         .WADDR_I(WADDR),
@@ -94,10 +99,5 @@ module DATA_BUFFER #(
         .RADDR_I(RADDR),
         .RDATA_O(RDATA_O)
     );
-    defparam u_SDPRAM_SINGLECLK.DATA_WIDTH = DATA_WIDTH;
-    defparam u_SDPRAM_SINGLECLK.ADDR_WIDTH = ADDR_WIDTH;
-    defparam u_SDPRAM_SINGLECLK.OUTPUT_REG = OUTPUT_REG;
-    defparam u_SDPRAM_SINGLECLK.RAM_INIT_FILE = RAM_INIT_FILE;
     
-
 endmodule
