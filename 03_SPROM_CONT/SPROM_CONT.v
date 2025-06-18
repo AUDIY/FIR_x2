@@ -3,9 +3,9 @@
 *
 * Single Port ROM Controller to Output Filter Coefficients.
 *
-* Version: 1.00
+* Version: 1.01
 * Author : AUDIY
-* Date   : 2025/01/20
+* Date   : 2025/06/19
 *
 * Port
 *   Input
@@ -62,71 +62,43 @@ module SPROM_CONT #(
 );
 
     /* Internal Wire/Register Definition */
-    reg BCK_REG_P  = 1'b0;
-    reg BCK_REG_N  = 1'b0;
-    reg LRCK_REG_P = 1'b0;
-    reg LRCK_REG_N = 1'b0;
+    reg BCK_REG  = 1'b0;
+    reg LRCK_REG = 1'b0;
 
-    reg WEN_REG_P = 1'b0;
-    reg WEN_REG_N = 1'b0;
+    reg BCKx_REG  = 1'b1;
+    reg LRCKx_REG = 1'b1;
 
-    reg NRST_REG_P = 1'b1;
-
-    reg [ROM_ADDR_WIDTH-1:0] CADDR_REG = {ROM_ADDR_WIDTH{1'b0}};
-
-    reg [ROM_ADDR_WIDTH-1:0] CADDR_REG_P = {ROM_ADDR_WIDTH{1'b0}};
-    reg [ROM_ADDR_WIDTH-1:0] CADDR_REG_N = {ROM_ADDR_WIDTH{1'b0}};
-    reg                      LRCKx_REG_P = 1'b0;
-    reg                      LRCKx_REG_N = 1'b0;
-    reg                      BCKx_REG_P  = 1'b0;
-    reg                      BCKx_REG_N  = 1'b0;
+    reg [ROM_ADDR_WIDTH-1:0] CADDR_REG  = {ROM_ADDR_WIDTH{1'b0}};
+    reg [ROM_ADDR_WIDTH-1:0] CADDRO_REG = {ROM_ADDR_WIDTH{1'b0}};
 
     /* RTL */
     always @ (posedge MCLK_I) begin
         /* Read BCK & LRCK */
-        BCK_REG_P  <= BCK_I;
-        LRCK_REG_P <= LRCK_I;
+        BCK_REG  <= BCK_I;
+        LRCK_REG <= LRCK_I;
 
-        /* Synthesize NRST_I */
-        NRST_REG_P <= NRST_I;
-
-        /* Judge Write Enable */
-        WEN_REG_P <= LRCK_I & ~LRCK_REG_N;
-
-        /* Output Pipeline with positive edge. (2023/11/08) */
-        CADDR_REG_P <= {ROM_ADDR_WIDTH{1'b1}} - CADDR_REG;
-        LRCKx_REG_P <= CADDR_REG[ROM_ADDR_WIDTH-1];
-        BCKx_REG_P  <= (ROM_ADDR_WIDTH >= 8) ? CADDR_REG[ROM_ADDR_WIDTH-7] : 1'b0;
-    end
-
-    always @ (negedge MCLK_I) begin
-        /* 1 MCLK cycle Delay */
-        BCK_REG_N  <= BCK_REG_P;
-        LRCK_REG_N <= LRCK_REG_P;
-
-        /* Update Adress */
-        if (WEN_REG_P == 1'b1) begin
-            /* Change Initial Address (2023/11/25) */
-            CADDR_REG <= {ROM_ADDR_WIDTH{1'b0}} + 1'b1;
+        /* Update Address */
+        if (LRCK_I & ~LRCK_REG == 1'b1) begin
+            /* Change Initial Address */
+            CADDR_REG <= {{(ROM_ADDR_WIDTH-1){1'b0}}, 1'b1};
         end else begin
             /* Jump Address */
             // LRCK_REG_N == 1'b1: Odd Address.
             // LRCK_REG_N == 1'b0: Even Address.
             /* Change Odd & Even (2023/11/25) */
-            CADDR_REG <= {(CADDR_REG[ROM_ADDR_WIDTH-1:1] + 1'b1), LRCK_REG_P};
+            //CADDR_REG <= {(CADDR_REG[ROM_ADDR_WIDTH-1:1] + 1'b1), LRCK_REG};
+            CADDR_REG <= {(CADDR_REG[ROM_ADDR_WIDTH-1:1] + 1'b1), LRCK_I};
         end
 
-        WEN_REG_N <= WEN_REG_P;
-
-        /* Output Pipeline with negative edge. (2023/11/08) */
-        CADDR_REG_N <= CADDR_REG_P;
-        LRCKx_REG_N <= LRCKx_REG_P;
-        BCKx_REG_N  <= BCKx_REG_P;
+        /* Output Pipeline with positive edge. (2023/11/08) */
+        CADDRO_REG <= {ROM_ADDR_WIDTH{1'b1}} - CADDR_REG;
+        LRCKx_REG  <= CADDR_REG[ROM_ADDR_WIDTH-1];
+        BCKx_REG   <= (ROM_ADDR_WIDTH >= 8) ? CADDR_REG[ROM_ADDR_WIDTH-7] : 1'b0;
     end
 
     /* Output Assign (Changed 2023/11/08) */
-    assign CADDR_O = CADDR_REG_N;
-    assign LRCKx_O = LRCKx_REG_N;
-    assign BCKx_O  = (ROM_ADDR_WIDTH >= 7) ? BCKx_REG_N : MCLK_I; // Change BCK Generation (2023/11/26)
+    assign CADDR_O = CADDRO_REG;
+    assign LRCKx_O = LRCKx_REG;
+    assign BCKx_O  = (ROM_ADDR_WIDTH >= 7) ? BCKx_REG : MCLK_I; // Change BCK Generation (2023/11/26)
 
 endmodule
