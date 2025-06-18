@@ -3,28 +3,29 @@
 *
 * Test Bench for DPRAM_CONT.v
 *
-* Version: 1.00
+* Version: 1.01
 * Author : AUDIY
-* Date   : 2025/01/20
+* Date   : 2025/05/22
 *
 * License
 --------------------------------------------------------------------------------
-| Copyright AUDIY 2023 - 2025.                                                 |
+| Copyright AUDIY 2023 - 2025.                                                        |
 |                                                                              |
-| This source describes Open Hardware and is licensed under the CERN-OHL-W v2. |
+| This source describes Open Hardware and is licensed under the CERN-OHL-S v2. |
 |                                                                              |
 | You may redistribute and modify this source and make products using it under |
-| the terms of the CERN-OHL-W v2 (https:/cern.ch/cern-ohl).                    |
+| the terms of the CERN-OHL-S v2 (https://ohwr.org/cern_ohl_s_v2.txt).         |
 |                                                                              |
 | This source is distributed WITHOUT ANY EXPRESS OR IMPLIED WARRANTY,          |
 | INCLUDING OF MERCHANTABILITY, SATISFACTORY QUALITY AND FITNESS FOR A         |
-| PARTICULAR PURPOSE. Please see the CERN-OHL-W v2 for applicable conditions.  |
+| PARTICULAR PURPOSE. Please see the CERN-OHL-S v2 for applicable conditions.  |
 |                                                                              |
 | Source location: https://github.com/AUDIY/FIR_x2                             |
 |                                                                              |
-| As per CERN-OHL-W v2 section 4.1, should You produce hardware based on these |
-| sources, You must maintain the Source Location visible on the external case  |
-| of the FIR_x2 or other products you make using this source.                  |
+| As per CERN-OHL-S v2 section 4, should You produce hardware based on this    |
+| source, You must where practicable maintain the Source Location visible      |
+| on the external case of the Gizmo or other products you make using this      |
+| source.                                                                      |
 --------------------------------------------------------------------------------
 *
 -----------------------------------------------------------------------------*/
@@ -45,29 +46,38 @@ module DPRAM_CONT_TB();
     wire WEN_O;
     wire [ADDR_WIDTH-1:0] WADDR_O;
     wire [ADDR_WIDTH-1:0] RADDR_O;
-    wire NERR_ADDR_O;
+    wire REN_O;
 
     reg [8:0] MCLK_REG = {9{1'b0}};
 
     /* DPRAM_CONT module (EUT) */
-    DPRAM_CONT u1(
+    DPRAM_CONT #(
+        .ADDR_WIDTH(ADDR_WIDTH)
+    ) u1 (
         .MCLK_I(MCLK_I),
-        .BCK_I(BCK_I),
+        //.BCK_I( ),
         .LRCK_I(LRCK_I),
         .NRST_I(NRST_I),
         .WEN_O(WEN_O),
         .WADDR_O(WADDR_O),
-        .RADDR_O(RADDR_O),
-        .NERR_ADDR_O(NERR_ADDR_O)
+        .REN_O(REN_O),
+        .RADDR_O(RADDR_O)
     );
-    defparam u1.ADDR_WIDTH = ADDR_WIDTH;
 
     /* Test bench */
+    initial begin
+        $dumpfile("DPRAM_CONT_TB.vcd");
+        $dumpvars(0, DPRAM_CONT_TB);
+
+        #400000 $finish;
+
+    end
+
     always begin
         #1 MCLK_I <= ~MCLK_I;
     end
 
-    always @ (negedge MCLK_I) begin
+    always @ (posedge MCLK_I) begin
         MCLK_REG <= MCLK_REG + 1'b1;
     end
 
