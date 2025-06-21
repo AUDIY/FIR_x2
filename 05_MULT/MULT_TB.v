@@ -3,9 +3,9 @@
 *
 * Test Bench for MULT.v
 *
-* Version: 1.00
+* Version: 1.01
 * Author : AUDIY
-* Date   : 2025/01/20
+* Date   : 2025/06/21
 *
 * License
 --------------------------------------------------------------------------------
@@ -64,7 +64,12 @@ module MULT_TB();
     wire signed [DATA_WIDTH+COEF_WIDTH-1:0] MULT_O;
 
     /* DATA_BUFFER module */
-    DATA_BUFFER u_DATA_BUFFER(
+    DATA_BUFFER #(
+        .ADDR_WIDTH(WADDR_WIDTH),
+        .DATA_WIDTH(DATA_WIDTH),
+        .OUTPUT_REG(OUTPUT_REG),
+        .RAM_INIT_FILE(BUFF_INIT)
+    ) u_DATA_BUFFER(
         .MCLK_I(MCLK_I),
         .BCK_I(BCK_I),
         .LRCK_I(LRCK_I),
@@ -72,13 +77,14 @@ module MULT_TB();
         .WDATA_I(PCM_I),
         .RDATA_O(PCM_O)
     );
-    defparam u_DATA_BUFFER.ADDR_WIDTH = WADDR_WIDTH;
-    defparam u_DATA_BUFFER.DATA_WIDTH = DATA_WIDTH;
-    defparam u_DATA_BUFFER.OUTPUT_REG = OUTPUT_REG;
-    defparam u_DATA_BUFFER.RAM_INIT_FILE = BUFF_INIT;
 
     /* FOR_COEF module */
-    FIR_COEF u_FIR_COEF(
+    FIR_COEF #(
+        .DATA_WIDTH(COEF_WIDTH),
+        .ADDR_WIDTH(RADDR_WIDTH),
+        .OUTPUT_REG(OUTPUT_REG),
+        .RAM_INIT_FILE(COEF_INIT)
+    ) u_FIR_COEF(
         .MCLK_I(MCLK_I),
         .BCK_I(BCK_I),
         .LRCK_I(LRCK_I),
@@ -87,13 +93,12 @@ module MULT_TB();
         .LRCKx2_O(LRCKx2),
         .BCKx2_O(BCKx2) // Add BCKx2_O, 2023/09/03
     );
-    defparam u_FIR_COEF.DATA_WIDTH = COEF_WIDTH;
-    defparam u_FIR_COEF.ADDR_WIDTH = RADDR_WIDTH;
-    defparam u_FIR_COEF.OUTPUT_REG = OUTPUT_REG;
-    defparam u_FIR_COEF.RAM_INIT_FILE = COEF_INIT;
-    
+
     /* MULT module (EUT) */
-    MULT u_MULT(
+    MULT #(
+        .DATA_WIDTH(DATA_WIDTH),
+        .COEF_WIDTH(COEF_WIDTH)
+    ) u_MULT(
         .MCLK_I(MCLK_I),
         .DATA_I(PCM_O),
         .COEF_I(COEF_O),
@@ -104,10 +109,7 @@ module MULT_TB();
         .LRCKx2_O(LRCKx2_O),
         .BCKx2_O(BCKx2_O) // Add BCKx2_O, 2023/09/03
     );
-    defparam u_MULT.DATA_WIDTH = DATA_WIDTH;
-    defparam u_MULT.COEF_WIDTH = COEF_WIDTH;
-
-
+    
     /* Test bench */
     initial begin
         if (fp != 0) begin
@@ -122,6 +124,13 @@ module MULT_TB();
         end
     end
 
+    initial begin
+        $dumpfile("MULT_TB.vcd");
+        $dumpvars(0, MULT_TB);
+
+        #400000 $finish;
+    end
+
     always begin
         #1 MCLK_I <= ~MCLK_I;
     end
@@ -133,7 +142,7 @@ module MULT_TB();
     end
     */
 
-    always @ (negedge MCLK_I) begin
+    always @ (posedge MCLK_I) begin
         MCLK_CNT <= MCLK_CNT + 1'b1;
     end
 
