@@ -16,7 +16,7 @@
 *       RDATA_O      : Stored Data Output
 *
 *   Parameter
-*       DATA_WIDTH   : Coefficient DATA Width
+*       DATA_WIDTH   : Stored DATA Width
 *       ADDR_WIDTH   : ROM Address Width
 *       OUTPUT_REG   : Output Register Enable
 *       ROM_INIT_FILE: ROM Initialization File name
@@ -36,13 +36,14 @@
 --------------------------------------------------------------------------------
 *
 -----------------------------------------------------------------------------*/
+`default_nettype none
 
 module SPROM #(
     /* Parameter Definition */
-    parameter DATA_WIDTH = 16,
-	parameter ADDR_WIDTH = 8,
-	parameter OUTPUT_REG = "TRUE",
-	parameter ROM_INIT_FILE = "initrom.hex"
+    parameter DATA_WIDTH    = 16,
+    parameter ADDR_WIDTH    = 8,
+    parameter OUTPUT_REG    = "TRUE",
+    parameter ROM_INIT_FILE = "initrom.hex"
 ) (
     /* Input Port Definition */
     input  wire                  CLK_I,
@@ -73,11 +74,13 @@ module SPROM #(
 
     /* Output */
     generate
-        if (OUTPUT_REG == "TRUE") begin
+        if (OUTPUT_REG == "TRUE") begin : gen_reg2p
             assign RDATA_O = RDATAO_REG_2P;
-        end else begin
+        end else begin : gen_reg1p
             assign RDATA_O = RDATAO_REG_1P;
         end
     endgenerate
 
 endmodule
+
+`default_nettype wire

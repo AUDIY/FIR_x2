@@ -3,9 +3,9 @@
 *
 * Test Bench for FIR_x2.v
 *
-* Version: 1.00
+* Version: 1.02
 * Author : AUDIY
-* Date   : 2025/01/20
+* Date   : 2025/06/22
 *
 * License
 --------------------------------------------------------------------------------
@@ -28,6 +28,7 @@
 --------------------------------------------------------------------------------
 *
 -----------------------------------------------------------------------------*/
+`default_nettype none
 
 `timescale 1 ns / 1 ps
 
@@ -39,7 +40,7 @@ module FIR_x2_TB();
     wire                         BCK_I;
     wire                         LRCK_I;
     reg                          NRST_I = 1'b1;
-    reg  signed [DATA_WIDTH-1:0] DATA_I = {{1'b0}};
+    reg  signed [DATA_WIDTH-1:0] DATA_I = {DATA_WIDTH{1'b0}};
 
     reg  signed [DATA_WIDTH-1:0] DATAREG = {DATA_WIDTH{1'b0}};
     reg  signed [DATA_WIDTH-1:0] PCM_I   = {DATA_WIDTH{1'b0}};
@@ -52,7 +53,12 @@ module FIR_x2_TB();
     integer                      rp;
     reg         [8:0]            MCLK_CNT = {9{1'b0}};
 
-    FIR_x2 u_FIR_x2(
+    FIR_x2 #(
+        .DATA_WIDTH(DATA_WIDTH),
+        .COEF_WIDTH(16),
+        .WADDR_WIDTH(8),
+        .COEF_INIT("FIR512_x2_48000.hex")
+    ) u_FIR_x2(
         .MCLK_I(MCLK_I),
         .BCK_I(BCK_I),
         .LRCK_I(LRCK_I),
@@ -62,12 +68,11 @@ module FIR_x2_TB();
         .LRCKx2_O(LRCKx2_O),
         .DATA_O(DATA_O)
     );
-    defparam u_FIR_x2.DATA_WIDTH  = DATA_WIDTH;
-    defparam u_FIR_x2.COEF_WIDTH  = 16;
-    defparam u_FIR_x2.WADDR_WIDTH = 8;
-    defparam u_FIR_x2.COEF_INIT   = "FIR512_x2_48000.hex";
 
     initial begin
+        $dumpfile("FIR_x2_TB.vcd");
+        $dumpvars(0, FIR_x2_TB);
+
         if (fp != 0) begin
             $fclose(fp);
         end
@@ -79,6 +84,8 @@ module FIR_x2_TB();
             $display("ERROR: The file doesn't exist.");
             $finish(0);
         end
+
+        #400000 $finish;
     end
 
     always begin
@@ -107,3 +114,5 @@ module FIR_x2_TB();
     end
 
 endmodule
+
+`default_nettype wire

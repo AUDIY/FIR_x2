@@ -3,9 +3,9 @@
 *
 * FIR Coefficients ROM.
 *
-* Version: 1.00
+* Version: 1.02
 * Author : AUDIY
-* Date   : 2025/01/20
+* Date   : 2025/06/22
 *
 * Port
 *   Input
@@ -46,6 +46,8 @@
 --------------------------------------------------------------------------------
 *
 -----------------------------------------------------------------------------*/
+`default_nettype none
+
 module FIR_COEF #(
     /* Parameter Definition */
     parameter DATA_WIDTH = 32,
@@ -77,7 +79,9 @@ module FIR_COEF #(
     
 
     /* Single Port ROM Controller */
-    SPROM_CONT u_SPROM_CONT(
+    SPROM_CONT #(
+        .ROM_ADDR_WIDTH(ADDR_WIDTH)
+    ) u_SPROM_CONT(
         .MCLK_I(MCLK_I),
         .BCK_I(BCK_I),
         .LRCK_I(LRCK_I),
@@ -86,18 +90,18 @@ module FIR_COEF #(
         .LRCKx_O(LRCKx_O),
         .BCKx_O(BCKx_O)
     );
-    defparam u_SPROM_CONT.ROM_ADDR_WIDTH = ADDR_WIDTH;
 
     /* Single Port ROM */
-    SPROM u_SPROM(
+    SPROM #(
+        .DATA_WIDTH(DATA_WIDTH),
+        .ADDR_WIDTH(ADDR_WIDTH),
+        .OUTPUT_REG(OUTPUT_REG),
+        .ROM_INIT_FILE(RAM_INIT_FILE)
+    ) u_SPROM(
         .CLK_I(MCLK_I),
         .RADDR_I(CADDR),
         .RDATA_O(COEF_O)
     );
-    defparam u_SPROM.DATA_WIDTH = DATA_WIDTH;
-    defparam u_SPROM.ADDR_WIDTH = ADDR_WIDTH;
-    defparam u_SPROM.OUTPUT_REG = OUTPUT_REG;
-    defparam u_SPROM.ROM_INIT_FILE = RAM_INIT_FILE;
 
     /* Add LRCKx_O Output Register, 2023/08/12 */
     always @ (posedge MCLK_I) begin
@@ -110,13 +114,15 @@ module FIR_COEF #(
     end
 
     generate
-        if (OUTPUT_REG == "TRUE") begin
+        if (OUTPUT_REG == "TRUE") begin : gen_regtrue
             assign LRCKx2_O = LRCKx2_p2;
             assign BCKx2_O  = (ADDR_WIDTH >= 8) ? BCKx2_p2 : MCLK_I; // Change BCKx2_O Generation (2023/11/26)
-        end else begin
+        end else begin : gen_regfalse
             assign LRCKx2_O = LRCKx2_p1;
             assign BCKx2_O  = (ADDR_WIDTH >= 8) ? BCKx2_p1 : MCLK_I; // Change BCKx2_O Generation (2023/11/26)
         end
     endgenerate
 
 endmodule
+
+`default_nettype wire

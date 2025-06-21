@@ -3,9 +3,9 @@
 *
 * Test Bench for SPROM_CONT.v
 *
-* Version: 1.00
+* Version: 1.02
 * Author : AUDIY
-* Date   : 2025/01/20
+* Date   : 2025/06/22
 *
 * License
 --------------------------------------------------------------------------------
@@ -28,6 +28,7 @@
 --------------------------------------------------------------------------------
 *
 -----------------------------------------------------------------------------*/
+`default_nettype none
 
 `timescale 1 ns / 1 ps
 
@@ -35,7 +36,7 @@ module SPROM_CONT_TB();
 
     parameter ADDR_WIDTH = 9;
 
-    reg  MCLK_I = 1'b1;
+    reg  MCLK_I = 1'b0;
     wire BCK_I;
     wire LRCK_I;
     reg  NRST_I = 1'b1;
@@ -46,7 +47,9 @@ module SPROM_CONT_TB();
 
     reg [8:0] MCLK_REG = {9{1'b0}};
 
-    SPROM_CONT u1(
+    SPROM_CONT #(
+        .ROM_ADDR_WIDTH(ADDR_WIDTH)
+    ) u1(
         .MCLK_I(MCLK_I),
         .BCK_I(BCK_I),
         .LRCK_I(LRCK_I),
@@ -55,20 +58,26 @@ module SPROM_CONT_TB();
         .LRCKx_O(LRCKx_O), // Add LRCKx_O, 2023/08/12
         .BCKx_O(BCKx_O)    // Add BCKx_O, 2023/09/03
     );
-    defparam u1.ROM_ADDR_WIDTH = ADDR_WIDTH;
+
+    initial begin
+        $dumpfile("SPROM_CONT_TB.vcd");
+        $dumpvars(0, SPROM_CONT_TB);
+
+        #400000 $finish;
+    end
 
     /* Generate Master Clock */
     always begin
         #1 MCLK_I <= ~MCLK_I;
     end
 
-    always @ (negedge MCLK_I) begin
+    always @ (posedge MCLK_I) begin
         MCLK_REG <= MCLK_REG + 1'b1;
     end
 
     /* Generate BCK & LRCK */
     assign BCK_I  = MCLK_REG[2];
-    assign LRCK_I = MCLK_REG[8];
+    assign LRCK_I = ~MCLK_REG[8];
 
     /* Generate Reset */
     always begin
@@ -77,3 +86,5 @@ module SPROM_CONT_TB();
     end
 
 endmodule
+
+`default_nettype wire

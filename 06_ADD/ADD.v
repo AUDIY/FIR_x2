@@ -3,9 +3,9 @@
 *
 * Multiplied Data Integrator w/ input & output register.
 *
-* Version: 1.00
+* Version: 1.02
 * Author : AUDIY
-* Date   : 2025/01/20
+* Date   : 2025/06/22
 *
 * Port
 *   Input
@@ -45,6 +45,8 @@
 --------------------------------------------------------------------------------
 *
 -----------------------------------------------------------------------------*/
+`default_nettype none
+
 module ADD #(
     /* Parameter Definition */
     parameter MULT_WIDTH = 48,
@@ -65,45 +67,33 @@ module ADD #(
 );
 
     /* Internal Wire/Register Definition */
-    reg  signed [MULT_WIDTH-1:0] MULT_p1   = {MULT_WIDTH{1'b0}};
-    reg  signed [MULT_WIDTH-1:0] ADD_p1    = {MULT_WIDTH{1'b0}};
-    reg  signed [MULT_WIDTH-1:0] ADDO_p1   = {MULT_WIDTH{1'b0}};
-    reg  signed [MULT_WIDTH-1:0] ADDO_n1   = {MULT_WIDTH{1'b0}};
-    reg                          LRCKx2_p1 = 1'b0;
-    reg                          LRCKx2_n1 = 1'b0;
-    reg                          BCKx2_p1  = 1'b0;
-    reg                          BCKx2_n1  = 1'b0;
-    reg                          NRST_p1   = 1'b1;
+    reg  signed [MULT_WIDTH-1:0] MULT_REG   = {MULT_WIDTH{1'b0}};
+    reg  signed [MULT_WIDTH-1:0] ADD_REG    = {MULT_WIDTH{1'b0}};
+    reg  signed [MULT_WIDTH-1:0] ADDO_REG   = {MULT_WIDTH{1'b0}};
+    reg                          LRCKx2_REG = 1'b0;
+    reg                          BCKx2_REG  = 1'b0;
 
     /* RTL */
     always @ (posedge MCLK_I) begin
-        MULT_p1   <= MULT_I;
-        LRCKx2_p1 <= LRCKx2_I;
-        BCKx2_p1  <= (RAM_ADDR_WIDTH >= 7) ? BCKx2_I : 1'b0; // Change BCKx2 input (2023/11/26)
+        MULT_REG  <= MULT_I;
+        LRCKx2_REG <= LRCKx2_I;
+        BCKx2_REG  <= (RAM_ADDR_WIDTH >= 7) ? BCKx2_I : 1'b0; // Change BCKx2 input (2023/11/26)
 
-        if (~LRCKx2_I & LRCKx2_p1 == 1'b1) begin
-            /* Update Reset Status. */
-            NRST_p1 <= NRST_I;
-
+        if (~LRCKx2_I & LRCKx2_REG == 1'b1) begin
             /* Negedge of LRCKx2: Reset Adder. */
-            ADD_p1  <= (NRST_p1 == 1'b1) ? MULT_p1 : {MULT_WIDTH{1'b0}};
-            ADDO_p1 <= (NRST_p1 == 1'b1) ? ADD_p1  : {MULT_WIDTH{1'b0}};
+            ADD_REG <= (NRST_I == 1'b1) ? MULT_REG : {MULT_WIDTH{1'b0}};
+            ADDO_REG <= (NRST_I == 1'b1) ? ADD_REG : {MULT_WIDTH{1'b0}};
         end else begin
             /* Normal Operation */
-            ADD_p1 <= (NRST_p1 == 1'b1) ? (ADD_p1 + MULT_p1) : {MULT_WIDTH{1'b0}};
+            ADD_REG <= (NRST_I == 1'b1) ? (ADD_REG + MULT_REG) : {MULT_WIDTH{1'b0}};
         end
     end
 
-    always @ (negedge MCLK_I) begin
-        /* Output Data synchronize with negedge of MCLK_I */
-        ADDO_n1   <= (NRST_p1 == 1'b1) ? ADDO_p1 : {MULT_WIDTH{1'b0}};
-        LRCKx2_n1 <= LRCKx2_p1;
-        BCKx2_n1  <= (RAM_ADDR_WIDTH >= 7) ? BCKx2_p1 : 1'b0;  // Change BCKx2 input (2023/11/26)
-    end
-
     /* Output Assign */
-    assign ADD_O    = ADDO_n1;
-    assign LRCKx2_O = LRCKx2_n1;
-    assign BCKx2_O  = (RAM_ADDR_WIDTH >= 7) ? BCKx2_n1 : MCLK_I; // Change BCKx2 Output (2023/11/26)
+    assign ADD_O    = ADDO_REG;
+    assign LRCKx2_O = LRCKx2_REG;
+    assign BCKx2_O  = (RAM_ADDR_WIDTH >= 7) ? BCKx2_REG : MCLK_I; // Change BCKx2 Output (2023/11/26)
 
 endmodule
+
+`default_nettype wire

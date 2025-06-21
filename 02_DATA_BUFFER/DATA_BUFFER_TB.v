@@ -3,9 +3,9 @@
 *
 * Test bench for DATA_BUFFER.v
 *
-* Version: 1.00
+* Version: 1.02
 * Author : AUDIY
-* Date   : 2025/01/20
+* Date   : 2025/06/22
 *
 * License
 --------------------------------------------------------------------------------
@@ -28,6 +28,7 @@
 --------------------------------------------------------------------------------
 *
 -----------------------------------------------------------------------------*/
+`default_nettype none
 
 `timescale 1 ns / 1 ps
 
@@ -49,7 +50,11 @@ module DATA_BUFFER_TB();
     reg signed [31:0] PCM_I = {32{1'b0}};
 
     /* DATA_BUFFER module (EUT) */
-    DATA_BUFFER u_DATA_BUFFER(
+    DATA_BUFFER #(
+        .ADDR_WIDTH(8),
+        .DATA_WIDTH(32),
+        .OUTPUT_REG("TRUE")
+    ) u_DATA_BUFFER(
         .MCLK_I(MCLK_I),
         .BCK_I(BCK_I),
         .LRCK_I(LRCK_I),
@@ -57,12 +62,12 @@ module DATA_BUFFER_TB();
         .WDATA_I(PCM_I),
         .RDATA_O(PCM_O)
     );
-    defparam u_DATA_BUFFER.ADDR_WIDTH = 8;
-    defparam u_DATA_BUFFER.DATA_WIDTH = 32;
-    defparam u_DATA_BUFFER.OUTPUT_REG = "TRUE";
 
     /* Test bench */
     initial begin
+        $dumpfile("DATA_BUFFER_TB.vcd");
+        $dumpvars(0, DATA_BUFFER_TB);
+
         if (fp != 0) begin
             $fclose(fp);
         end
@@ -73,18 +78,21 @@ module DATA_BUFFER_TB();
             $display("ERROR: The file doesn't exist.");
             $finish(0);
         end
+
+        #400000 $finish;
     end
 
     always begin
         #1 MCLK_I <= ~MCLK_I;
     end
 
-    always begin
-        #4998 NRST_I <= 1'b0;
-        #5    NRST_I <= 1'b1;
-    end
+    //always begin
+        /* Note: Reset-Test is NOT performed. */
+        //#140000 NRST_I <= 1'b0;
+        //#512  NRST_I <= 1'b1;
+    //end
 
-    always @ (negedge MCLK_I) begin
+    always @ (posedge MCLK_I) begin
         MCLK_CNT <= MCLK_CNT + 1'b1;
     end
 
@@ -101,3 +109,5 @@ module DATA_BUFFER_TB();
 
 
 endmodule
+
+`default_nettype wire

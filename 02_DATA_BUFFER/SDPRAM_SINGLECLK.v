@@ -20,7 +20,7 @@
 *       RDATA_O      : Stored Data Output
 *
 *   Parameter
-*       DATA_WIDTH   : Coefficient DATA Width
+*       DATA_WIDTH   : DATA Bit Width
 *       ADDR_WIDTH   : ROM Address Width
 *       OUTPUT_REG   : Output Register Enable
 *       RAM_INIT_FILE: RAM Initialization File
@@ -40,21 +40,22 @@
 --------------------------------------------------------------------------------
 *
 -----------------------------------------------------------------------------*/
+`default_nettype none
 
 module SDPRAM_SINGLECLK #(
     /* Parameter Definition */
-    parameter DATA_WIDTH = 8,
-    parameter ADDR_WIDTH = 9,
-    parameter OUTPUT_REG = "TRUE",
+    parameter DATA_WIDTH    = 8,
+    parameter ADDR_WIDTH    = 9,
+    parameter OUTPUT_REG    = "TRUE",
     parameter RAM_INIT_FILE = "RAMINIT.hex"
 ) (
     /* Input Port Definiton */
-    input  wire                  CLK_I,
-    input  wire [ADDR_WIDTH-1:0] WADDR_I,
-    input  wire                  WENABLE_I,
-    input  wire [DATA_WIDTH-1:0] WDATA_I,
-    input  wire [ADDR_WIDTH-1:0] RADDR_I,
-    input  wire                  RENABLE_I,
+    input wire                  CLK_I  ,
+    input wire [ADDR_WIDTH-1:0] WADDR_I,
+    input wire                  WENABLE_I,
+    input wire [DATA_WIDTH-1:0] WDATA_I,
+    input wire [ADDR_WIDTH-1:0] RADDR_I,
+    input wire                  RENABLE_I,
 
     /* Output Port Definition */
     output wire [DATA_WIDTH-1:0] RDATA_O
@@ -62,7 +63,7 @@ module SDPRAM_SINGLECLK #(
 
     /* Local Parameters */
     localparam MEMORY_DEPTH = 2**ADDR_WIDTH;
-    localparam MAX_DATA     = (1 << ADDR_WIDTH) - 1;
+    //localparam MAX_DATA     = (1 << ADDR_WIDTH) - 1; // Unused now.
 
     /* Internal Wire/Register Definition */
     reg [DATA_WIDTH-1:0] RAM[MEMORY_DEPTH-1:0];
@@ -93,17 +94,13 @@ module SDPRAM_SINGLECLK #(
 
     /* Output */
     generate
-		if (OUTPUT_REG == "TRUE")
-			assign RDATA_O = RDATA_REG_2P;
-		else
-			assign RDATA_O = RDATA_REG_1P;
-	endgenerate
-
-    /* Assertions */
-    // Assertion #0: When RADDR_I and WADDR_I are the same, either or both of WENABLE_I and RENABLE returns 1'b0.
-    // psl assert always ((RADDR_I == WADDR_I) -> ((WENABLE_I & RENABLE_I) == 1'b0)) @ (posedge CLK_I);
-
-    // Assertion #1: When both of WENABLE_I and RENABLE_I returns 1'b1, RADDR_I and WADDR_I must be different.
-    // psl assert always ((WENABLE_I & RENABLE_I == 1'b1) -> (WADDR_I != RADDR_I)) @(posedge CLK_I);
+        if (OUTPUT_REG == "TRUE") begin : gen_reg2p
+            assign RDATA_O = RDATA_REG_2P;
+        end else begin : gen_reg1p
+            assign RDATA_O = RDATA_REG_1P;
+        end
+    endgenerate
 
 endmodule
+
+`default_nettype wire

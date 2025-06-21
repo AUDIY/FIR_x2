@@ -3,9 +3,9 @@
 *
 * Test Bench for ADD.v
 *
-* Version: 1.00
+* Version: 1.02
 * Author : AUDIY
-* Date   : 2025/01/20
+* Date   : 2025/06/22
 *
 * License
 --------------------------------------------------------------------------------
@@ -28,6 +28,7 @@
 --------------------------------------------------------------------------------
 *
 -----------------------------------------------------------------------------*/
+`default_nettype none
 
 `timescale 1 ns / 1 ps
 
@@ -68,7 +69,12 @@ module ADD_TB();
     wire signed [DATA_WIDTH+COEF_WIDTH-1:0] MULT_O;
 
     /* DATA_BUFFER module */
-    DATA_BUFFER u_DATA_BUFFER(
+    DATA_BUFFER #(
+        .ADDR_WIDTH(WADDR_WIDTH),
+        .DATA_WIDTH(DATA_WIDTH),
+        .OUTPUT_REG(OUTPUT_REG),
+        .RAM_INIT_FILE(BUFF_INIT)
+    ) u_DATA_BUFFER(
         .MCLK_I(MCLK_I),
         .BCK_I(BCK_I),
         .LRCK_I(LRCK_I),
@@ -76,13 +82,14 @@ module ADD_TB();
         .WDATA_I(PCM_I),
         .RDATA_O(PCM_O)
     );
-    defparam u_DATA_BUFFER.ADDR_WIDTH = WADDR_WIDTH;
-    defparam u_DATA_BUFFER.DATA_WIDTH = DATA_WIDTH;
-    defparam u_DATA_BUFFER.OUTPUT_REG = OUTPUT_REG;
-    defparam u_DATA_BUFFER.RAM_INIT_FILE = BUFF_INIT;
 
     /* FIR_COEF module */
-    FIR_COEF u_FIR_COEF(
+    FIR_COEF #(
+        .DATA_WIDTH(COEF_WIDTH),
+        .ADDR_WIDTH(RADDR_WIDTH),
+        .OUTPUT_REG(OUTPUT_REG),
+        .RAM_INIT_FILE(COEF_INIT)
+    ) u_FIR_COEF(
         .MCLK_I(MCLK_I),
         .BCK_I(BCK_I),
         .LRCK_I(LRCK_I),
@@ -91,13 +98,12 @@ module ADD_TB();
         .LRCKx2_O(LRCKx2_1),
         .BCKx2_O(BCKx2_COEF)
     );
-    defparam u_FIR_COEF.DATA_WIDTH = COEF_WIDTH;
-    defparam u_FIR_COEF.ADDR_WIDTH = RADDR_WIDTH;
-    defparam u_FIR_COEF.OUTPUT_REG = OUTPUT_REG;
-    defparam u_FIR_COEF.RAM_INIT_FILE = COEF_INIT;
-    
+
     /* Multiplier */
-    MULT u_MULT(
+    MULT #(
+        .DATA_WIDTH(DATA_WIDTH),
+        .COEF_WIDTH(COEF_WIDTH)
+    ) u_MULT(
         .MCLK_I(MCLK_I),
         .DATA_I(PCM_O),
         .COEF_I(COEF_O),
@@ -108,11 +114,12 @@ module ADD_TB();
         .LRCKx2_O(LRCKx2_2),
         .BCKx2_O(BCKx2_MULT)
     );
-    defparam u_MULT.DATA_WIDTH = DATA_WIDTH;
-    defparam u_MULT.COEF_WIDTH = COEF_WIDTH;
 
     /* Adder (EUT) */
-    ADD u_ADD(
+    ADD #(
+        .MULT_WIDTH(DATA_WIDTH+COEF_WIDTH),
+        .RAM_ADDR_WIDTH(WADDR_WIDTH)
+    ) u_ADD(
         .MCLK_I(MCLK_I),
         .BCKx2_I(BCKx2_MULT),
         .LRCKx2_I(LRCKx2_2),
@@ -122,8 +129,6 @@ module ADD_TB();
         .LRCKx2_O(LRCKx2_O),
         .BCKx2_O(BCKx2_O)
     );
-    defparam u_ADD.MULT_WIDTH = DATA_WIDTH+COEF_WIDTH;
-    defparam u_ADD.RAM_ADDR_WIDTH = WADDR_WIDTH;
 
     initial begin
         if (fp != 0) begin
@@ -137,6 +142,11 @@ module ADD_TB();
             $display("ERROR: The file doesn't exist.");
             $finish(0);
         end
+
+        $dumpfile("ADD_TB.vcd");
+        $dumpvars(0, ADD_TB);
+
+        #400000 $finish;
     end
 
     always begin
@@ -150,7 +160,7 @@ module ADD_TB();
     end
     */
 
-    always @ (negedge MCLK_I) begin
+    always @ (posedge MCLK_I) begin
         MCLK_CNT <= MCLK_CNT + 1'b1;
     end
 
@@ -166,3 +176,5 @@ module ADD_TB();
     end
 
 endmodule
+
+`default_nettype wire
