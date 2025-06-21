@@ -3,9 +3,9 @@
 * 
 * Test Bench for FIR_COEF.v
 *
-* Version: 1.00
+* Version: 1.01
 * Author : AUDIY
-* Date   : 2025/01/20
+* Date   : 2025/06/21
 *
 * License
 --------------------------------------------------------------------------------
@@ -51,8 +51,13 @@ module FIR_COEF_TB();
 
     reg [8:0] MCLK_REG = {9{1'b0}};
 
-    /* FOR_COEF module (EUT) */
-    FIR_COEF u_FIR_COEF(
+    /* FIR_COEF module (EUT) */
+    FIR_COEF #(
+        .DATA_WIDTH(DATA_WIDTH),
+        .ADDR_WIDTH(ADDR_WIDTH),
+        .OUTPUT_REG(OUTPUT_REG),
+        .RAM_INIT_FILE(RAM_INIT_FILE)
+    ) u_FIR_COEF(
         .MCLK_I(MCLK_I),
         .BCK_I(BCK_I),
         .LRCK_I(LRCK_I),
@@ -61,17 +66,20 @@ module FIR_COEF_TB();
         .LRCKx2_O(LRCKx2_O), // Add 2023/08/12
         .BCKx2_O(BCKx2_O) // Add 2023/09/03
     );
-    defparam u_FIR_COEF.DATA_WIDTH    = DATA_WIDTH;
-    defparam u_FIR_COEF.ADDR_WIDTH    = ADDR_WIDTH;
-    defparam u_FIR_COEF.OUTPUT_REG    = OUTPUT_REG;
-    defparam u_FIR_COEF.RAM_INIT_FILE = RAM_INIT_FILE;
+
+    initial begin
+        $dumpfile("FIR_COEF_TB.vcd");
+        $dumpvars(0, FIR_COEF_TB);
+
+        #400000 $finish;
+    end
 
     /* Generate Master Clock */
     always begin
         #1 MCLK_I <= ~MCLK_I;
     end
 
-    always @ (negedge MCLK_I) begin
+    always @ (posedge MCLK_I) begin
         MCLK_REG <= MCLK_REG + 1'b1;
     end
 
@@ -84,6 +92,5 @@ module FIR_COEF_TB();
         #4989 NRST_I <= 1'b0;
         #5    NRST_I <= 1'b1;
     end
-
 
 endmodule

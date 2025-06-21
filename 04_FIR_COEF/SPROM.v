@@ -3,9 +3,9 @@
 *
 * Single-Port ROM
 *
-* Version: 1.00
+* Version: 1.01
 * Author : AUDIY
-* Date   : 2025/01/20
+* Date   : 2025/06/21
 *
 * Port
 *   Input
@@ -23,7 +23,7 @@
 *
 * License under CERN-OHL-P v2
 --------------------------------------------------------------------------------
-| Copyright AUDIY 2023 - 2025.                                                 |
+| Copyright AUDIY 2023 - 2025.                                                        |
 |                                                                              |
 | This source describes Open Hardware and is licensed under the CERN-OHL-P v2. |
 |                                                                              |
