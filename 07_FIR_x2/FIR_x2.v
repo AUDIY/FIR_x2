@@ -3,9 +3,9 @@
 *
 * Oversampling FIR Filter Module (Oversampling Ratio: x2)
 *
-* Version: 1.00
+* Version: 1.01
 * Author : AUDIY
-* Date   : 2025/01/20
+* Date   : 2025/06/21
 *
 * Port
 *   Input
@@ -92,17 +92,19 @@ module FIR_x2 #(
 
     wire                        BCKx2O_wire;
     wire                        LRCKx2O_wire;
-    reg                         BCKx2O_REG_P  = 1'b0;
-    reg                         BCKx2O_REG_N  = 1'b0;
-    reg                         LRCKx2O_REG_P = 1'b0;
-    reg                         LRCKx2O_REG_N = 1'b0;
-    reg signed [DATA_WIDTH-1:0] DATAO_REG_P   = {DATA_WIDTH-1{1'b0}};
-    reg signed [DATA_WIDTH-1:0] DATAO_REG_N   = {DATA_WIDTH-1{1'b0}};
+    reg                         BCKx2O_REG  = 1'b0;
+    reg                         LRCKx2O_REG = 1'b0;
+    reg signed [DATA_WIDTH-1:0] DATAO_REG   = {DATA_WIDTH{1'b0}};
     
 
     /* DATA_BUFFER module */
     // PCM DATA RAM
-    DATA_BUFFER u_DATA_BUFFER (
+    DATA_BUFFER #(
+        .ADDR_WIDTH(WADDR_WIDTH),
+        .DATA_WIDTH(DATA_WIDTH),
+        .OUTPUT_REG(OUTPUT_REG),
+        .RAM_INIT_FILE(BUFF_INIT)
+    ) u_DATA_BUFFER (
         .MCLK_I(MCLK_I),
         .BCK_I(BCK_I),
         .LRCK_I(LRCK_I),
@@ -110,14 +112,15 @@ module FIR_x2 #(
         .WDATA_I(DATA_I),
         .RDATA_O(RDATA)
     );
-    defparam u_DATA_BUFFER.ADDR_WIDTH    = WADDR_WIDTH;
-    defparam u_DATA_BUFFER.DATA_WIDTH    = DATA_WIDTH;
-    defparam u_DATA_BUFFER.OUTPUT_REG    = OUTPUT_REG;
-    defparam u_DATA_BUFFER.RAM_INIT_FILE = BUFF_INIT;
 
     /* FIR COEF module */
     // FIR filter Coefficients ROM
-    FIR_COEF u_FIR_COEF (
+    FIR_COEF #(
+        .DATA_WIDTH(COEF_WIDTH),
+        .ADDR_WIDTH(RADDR_WIDTH),
+        .OUTPUT_REG(OUTPUT_REG),
+        .RAM_INIT_FILE(COEF_INIT)
+    ) u_FIR_COEF (
         .MCLK_I(MCLK_I),
         .BCK_I(BCK_I),
         .LRCK_I(LRCK_I),
@@ -126,14 +129,13 @@ module FIR_x2 #(
         .LRCKx2_O(LRCKx2_COEF),
         .BCKx2_O(BCKx2_COEF)
     );
-    defparam u_FIR_COEF.DATA_WIDTH    = COEF_WIDTH;
-    defparam u_FIR_COEF.ADDR_WIDTH    = RADDR_WIDTH;
-    defparam u_FIR_COEF.OUTPUT_REG    = OUTPUT_REG;
-    defparam u_FIR_COEF.RAM_INIT_FILE = COEF_INIT;
 
     /* MULT module */
     // DATA & Coefficient Multiplier
-    MULT u_MULT (
+    MULT #(
+        .DATA_WIDTH(DATA_WIDTH),
+        .COEF_WIDTH(COEF_WIDTH)
+    ) u_MULT (
         .MCLK_I(MCLK_I),
         .DATA_I(RDATA),
         .COEF_I(COEF),
@@ -144,12 +146,13 @@ module FIR_x2 #(
         .LRCKx2_O(LRCKx2_MULT),
         .BCKx2_O(BCKx2_MULT)
     );
-    defparam u_MULT.DATA_WIDTH = DATA_WIDTH;
-    defparam u_MULT.COEF_WIDTH = COEF_WIDTH;
 
     /* ADD module */
     // Filtered DATA Integrator
-    ADD u_ADD (
+    ADD #(
+        .MULT_WIDTH(MULT_WIDTH),
+        .RAM_ADDR_WIDTH(WADDR_WIDTH)
+    ) u_ADD (
         .MCLK_I(MCLK_I),
         .LRCKx2_I(LRCKx2_MULT),
         .BCKx2_I(BCKx2_MULT),
@@ -159,24 +162,17 @@ module FIR_x2 #(
         .LRCKx2_O(LRCKx2O_wire),
         .BCKx2_O(BCKx2O_wire)
     );
-    defparam u_ADD.MULT_WIDTH     = MULT_WIDTH;
-    defparam u_ADD.RAM_ADDR_WIDTH = WADDR_WIDTH;
 
     /* Pipeline (Add 2023/11/08) */
     always @ (posedge MCLK_I) begin
-        BCKx2O_REG_P  <= BCKx2O_wire;
-        LRCKx2O_REG_P <= LRCKx2O_wire;
-        DATAO_REG_P   <= (ADD_DATA[MULT_WIDTH-2] == ADD_DATA[MULT_WIDTH-3]) ? ADD_DATA[MULT_WIDTH-3:MULT_WIDTH-3-(DATAO_WIDTH-1)] : {ADD_DATA[MULT_WIDTH-2], {(DATAO_WIDTH-1){ADD_DATA[MULT_WIDTH-3]}}};
-    end
-
-    always @ (negedge MCLK_I) begin
-        BCKx2O_REG_N  <= BCKx2O_REG_P;
-        LRCKx2O_REG_N <= LRCKx2O_REG_P;
-        DATAO_REG_N   <= DATAO_REG_P;
+        BCKx2O_REG  <= BCKx2O_wire;
+        LRCKx2O_REG <= LRCKx2O_wire;
+        DATAO_REG   <= (ADD_DATA[MULT_WIDTH-2] == ADD_DATA[MULT_WIDTH-3]) ? ADD_DATA[MULT_WIDTH-3:MULT_WIDTH-3-(DATAO_WIDTH-1)] : {ADD_DATA[MULT_WIDTH-2], {(DATAO_WIDTH-1){ADD_DATA[MULT_WIDTH-3]}}};
     end
 
     /* Output Assign */
-    assign BCKx2_O  = (WADDR_WIDTH >= 7) ? BCKx2O_REG_N : MCLK_I; // Change BCK Output (2023/11/26)
-    assign LRCKx2_O = LRCKx2O_REG_N;
-    assign DATA_O   = DATAO_REG_N;
+    assign BCKx2_O  = (WADDR_WIDTH >= 7) ? BCKx2O_REG : MCLK_I; // Change BCK Output (2023/11/26)
+    assign LRCKx2_O = LRCKx2O_REG;
+    assign DATA_O   = DATAO_REG;
+    
 endmodule
