@@ -3,9 +3,9 @@
 *
 * Test Bench for FIR_x2.v
 *
-* Version: 1.01
+* Version: 1.02
 * Author : AUDIY
-* Date   : 2025/06/21
+* Date   : 2025/06/22
 *
 * License
 --------------------------------------------------------------------------------
@@ -28,6 +28,7 @@
 --------------------------------------------------------------------------------
 *
 -----------------------------------------------------------------------------*/
+`default_nettype none
 
 `timescale 1 ns / 1 ps
 
@@ -76,8 +77,8 @@ module FIR_x2_TB();
             $fclose(fp);
         end
 
-        fp = $fopen("./Impulse_44100Hz_32bit.txt", "r");
-        //fp = $fopen("./PCM_1kHz_44100fs_32bit.txt", "r");
+        //fp = $fopen("./Impulse_44100Hz_32bit.txt", "r");
+        fp = $fopen("./PCM_1kHz_44100fs_32bit.txt", "r");
 
         if (fp == 0) begin
             $display("ERROR: The file doesn't exist.");
@@ -113,3 +114,5 @@ module FIR_x2_TB();
     end
 
 endmodule
+
+`default_nettype wire

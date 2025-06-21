@@ -3,9 +3,9 @@
 *
 * Single-Port ROM
 *
-* Version: 1.01
+* Version: 1.00
 * Author : AUDIY
-* Date   : 2025/06/21
+* Date   : 2025/01/20
 *
 * Port
 *   Input
@@ -16,14 +16,14 @@
 *       RDATA_O      : Stored Data Output
 *
 *   Parameter
-*       DATA_WIDTH   : Coefficient DATA Width
+*       DATA_WIDTH   : Stored DATA Width
 *       ADDR_WIDTH   : ROM Address Width
 *       OUTPUT_REG   : Output Register Enable
 *       ROM_INIT_FILE: ROM Initialization File name
 *
 * License under CERN-OHL-P v2
 --------------------------------------------------------------------------------
-| Copyright AUDIY 2023 - 2025.                                                        |
+| Copyright AUDIY 2023 - 2025.                                                 |
 |                                                                              |
 | This source describes Open Hardware and is licensed under the CERN-OHL-P v2. |
 |                                                                              |
@@ -36,13 +36,14 @@
 --------------------------------------------------------------------------------
 *
 -----------------------------------------------------------------------------*/
+`default_nettype none
 
 module SPROM #(
     /* Parameter Definition */
-    parameter DATA_WIDTH = 16,
-	parameter ADDR_WIDTH = 8,
-	parameter OUTPUT_REG = "TRUE",
-	parameter ROM_INIT_FILE = "initrom.hex"
+    parameter DATA_WIDTH    = 16,
+    parameter ADDR_WIDTH    = 8,
+    parameter OUTPUT_REG    = "TRUE",
+    parameter ROM_INIT_FILE = "initrom.hex"
 ) (
     /* Input Port Definition */
     input  wire                  CLK_I,
@@ -73,11 +74,13 @@ module SPROM #(
 
     /* Output */
     generate
-        if (OUTPUT_REG == "TRUE") begin
+        if (OUTPUT_REG == "TRUE") begin : gen_reg2p
             assign RDATA_O = RDATAO_REG_2P;
-        end else begin
+        end else begin : gen_reg1p
             assign RDATA_O = RDATAO_REG_1P;
         end
     endgenerate
 
 endmodule
+
+`default_nettype wire

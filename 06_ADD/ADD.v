@@ -3,9 +3,9 @@
 *
 * Multiplied Data Integrator w/ input & output register.
 *
-* Version: 1.01
+* Version: 1.02
 * Author : AUDIY
-* Date   : 2025/06/21
+* Date   : 2025/06/22
 *
 * Port
 *   Input
@@ -45,6 +45,8 @@
 --------------------------------------------------------------------------------
 *
 -----------------------------------------------------------------------------*/
+`default_nettype none
+
 module ADD #(
     /* Parameter Definition */
     parameter MULT_WIDTH = 48,
@@ -93,3 +95,5 @@ module ADD #(
     assign BCKx2_O  = (RAM_ADDR_WIDTH >= 7) ? BCKx2_REG : MCLK_I; // Change BCKx2 Output (2023/11/26)
 
 endmodule
+
+`default_nettype wire

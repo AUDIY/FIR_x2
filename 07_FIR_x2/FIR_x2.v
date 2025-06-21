@@ -3,9 +3,9 @@
 *
 * Oversampling FIR Filter Module (Oversampling Ratio: x2)
 *
-* Version: 1.01
+* Version: 1.02
 * Author : AUDIY
-* Date   : 2025/06/21
+* Date   : 2025/06/22
 *
 * Port
 *   Input
@@ -47,13 +47,14 @@
 --------------------------------------------------------------------------------
 *
 -----------------------------------------------------------------------------*/
+`default_nettype none
+
 module FIR_x2 #(
     /* Parameter Definition */
     parameter DATA_WIDTH  = 32,
     parameter COEF_WIDTH  = 16,
     parameter WADDR_WIDTH = 8,
     parameter COEF_INIT   = "FIR512.hex",
-    parameter BIT_BIAS    = 0, // Add 2023/09/30
     parameter DATAO_WIDTH = 32
 )
 (
@@ -176,3 +177,5 @@ module FIR_x2 #(
     assign DATA_O   = DATAO_REG;
     
 endmodule
+
+`default_nettype wire

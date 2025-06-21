@@ -3,9 +3,9 @@
 *
 * Simple Dual Port RAM Controller to operate as Ring-Buffer.
 *
-* Version: 1.01
+* Version: 1.02
 * Author : AUDIY
-* Date   : 2025/05/22
+* Date   : 2025/06/22
 *
 * Port
 *   Input
@@ -52,7 +52,6 @@ module DPRAM_CONT #(
 )(
     /* Input Definition */
     input  wire MCLK_I,
-    //input  wire BCK_I,
     input  wire LRCK_I,
     input  wire NRST_I, // Active Low.
 
@@ -64,11 +63,8 @@ module DPRAM_CONT #(
 );
 
     /* Internal Wire/Register Definition */
-    //reg BCK_REG = 1'b0;
     reg LRCK_REG = 1'b0;
     reg WEN_REG  = 1'b0;
-    //reg REN_REG = 1'b0;
-    //reg [ADDR_WIDTH-1:0] NRST_CNT  = {ADDR_WIDTH{1'b1}};
 
     reg [ADDR_WIDTH-1:0] WADDR_REG = {ADDR_WIDTH{1'b0}};
     reg [ADDR_WIDTH-1:0] RADDR_REG = {ADDR_WIDTH{1'b0}};
@@ -76,8 +72,7 @@ module DPRAM_CONT #(
 
     /* RTL */
     always @ (posedge MCLK_I) begin
-        /* Read BCK & LRCK */
-        //BCK_REG <= BCK_I; // Unused
+        /* Read LRCK */
         LRCK_REG <= LRCK_I;
 
         /* Update Address. */

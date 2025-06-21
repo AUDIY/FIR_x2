@@ -3,9 +3,9 @@
 *
 * Single Port ROM Controller to Output Filter Coefficients.
 *
-* Version: 1.01
+* Version: 1.02
 * Author : AUDIY
-* Date   : 2025/06/19
+* Date   : 2025/06/22
 *
 * Port
 *   Input
@@ -43,6 +43,7 @@
 --------------------------------------------------------------------------------
 *
 -----------------------------------------------------------------------------*/
+`default_nettype none
 
 module SPROM_CONT #(
     /* Parameter Definition */
@@ -82,11 +83,7 @@ module SPROM_CONT #(
             /* Change Initial Address */
             CADDR_REG <= {{(ROM_ADDR_WIDTH-1){1'b0}}, 1'b1};
         end else begin
-            /* Jump Address */
-            // LRCK_REG_N == 1'b1: Odd Address.
-            // LRCK_REG_N == 1'b0: Even Address.
             /* Change Odd & Even (2023/11/25) */
-            //CADDR_REG <= {(CADDR_REG[ROM_ADDR_WIDTH-1:1] + 1'b1), LRCK_REG};
             CADDR_REG <= {(CADDR_REG[ROM_ADDR_WIDTH-1:1] + 1'b1), LRCK_I};
         end
 
@@ -102,3 +99,5 @@ module SPROM_CONT #(
     assign BCKx_O  = (ROM_ADDR_WIDTH >= 7) ? BCKx_REG : MCLK_I; // Change BCK Generation (2023/11/26)
 
 endmodule
+
+`default_nettype wire

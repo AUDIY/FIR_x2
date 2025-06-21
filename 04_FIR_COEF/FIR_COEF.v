@@ -3,9 +3,9 @@
 *
 * FIR Coefficients ROM.
 *
-* Version: 1.01
+* Version: 1.02
 * Author : AUDIY
-* Date   : 2025/06/21
+* Date   : 2025/06/22
 *
 * Port
 *   Input
@@ -46,6 +46,8 @@
 --------------------------------------------------------------------------------
 *
 -----------------------------------------------------------------------------*/
+`default_nettype none
+
 module FIR_COEF #(
     /* Parameter Definition */
     parameter DATA_WIDTH = 32,
@@ -122,3 +124,5 @@ module FIR_COEF #(
     endgenerate
 
 endmodule
+
+`default_nettype wire

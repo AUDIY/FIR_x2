@@ -3,9 +3,9 @@
 *
 * Input DATA Buffer with RAM
 *
-* Version: 1.01
+* Version: 1.02
 * Author : AUDIY
-* Date   : 2025/06/19
+* Date   : 2025/06/22
 *
 * Port
 *   Input
@@ -45,6 +45,7 @@
 --------------------------------------------------------------------------------
 *
 -----------------------------------------------------------------------------*/
+`default_nettype none
 
 module DATA_BUFFER #(
     /* Parameter Definition */
@@ -101,3 +102,5 @@ module DATA_BUFFER #(
     );
     
 endmodule
+
+`default_nettype wire

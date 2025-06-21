@@ -3,9 +3,9 @@
 *
 * PCM DATA & Digital Filter Multiplier w/ input & output register.
 *
-* Version: 1.01
+* Version: 1.02
 * Author : AUDIY
-* Date   : 2025/06/21
+* Date   : 2025/06/22
 *
 * Port
 *   Input
@@ -46,6 +46,7 @@
 --------------------------------------------------------------------------------
 *
 -----------------------------------------------------------------------------*/
+`default_nettype none
 
 module MULT #(
     /* Parameter Definition */
@@ -99,3 +100,5 @@ module MULT #(
     assign DATA_O    = DATAO_p1;
 
 endmodule
+
+`default_nettype wire
