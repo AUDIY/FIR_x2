@@ -23,8 +23,7 @@ https://audio-diy.hatenablog.com/entry/FIR_x2_howtouse
 ## Notes
 1. Single-Port ROM (SPROM.v) & Simple Dual-Port RAM (SDPRAM_SINGLECLK.v) are provided but it is recommended to use each-vendor official IP.
 2. FIR filter length must be equals to (MCLK_I frequency)/(Sampling frequency)
-3. This project includes asynchronous design now. The author will try to make this completely synchronous design.
-4. When you use in vivado, memory file(.hex) should be changed to data file(.data). 
+3. When you use in vivado, memory file(.hex) should be changed to data file(.data). 
 
 ## Verified Devices
 No verified device in this version.
