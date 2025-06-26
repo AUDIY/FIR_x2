@@ -3,9 +3,9 @@
 *
 * PCM DATA & Digital Filter Multiplier w/ input & output register.
 *
-* Version: 1.02
+* Version: 1.11
 * Author : AUDIY
-* Date   : 2025/06/22
+* Date   : 2025/06/23
 *
 * Port
 *   Input
@@ -13,13 +13,13 @@
 *       DATA_I     : PCM Data Input
 *       COEF_I     : Filter Coefficient Input
 *       LRCKx2_I   : Oversampled LRCK input
-*       BCKx2_I    : Oversampled BCK input, Added 2023/09/03
+*       BCKx2_I    : Oversampled BCK input
 *       NRST_I     : Reset Input (Active Low)
 *
 *   Output
 *       DATA_O     : Multiplied Data Output
 *       LRCKx2_O   : Oversampled LRCK Output (w/ delay)
-*       BCKx2_O    : Oversampled BCK Output (w/ delay), Added 2023/09/03
+*       BCKx2_O    : Oversampled BCK Output (w/ delay)
 *
 * Parameter
 *       DATA_WIDTH : PCM Data input bitwise.
@@ -52,7 +52,7 @@ module MULT #(
     /* Parameter Definition */
     parameter DATA_WIDTH = 32,
     parameter COEF_WIDTH = 16,
-    parameter ROM_ADDR_WIDTH = 9 // Add parameter to judge BCK Output (2023/11/26)
+    parameter ROM_ADDR_WIDTH = 9
 )
 (
     /* Input Port Definition */
@@ -84,8 +84,8 @@ module MULT #(
     always @ (posedge MCLK_I) begin
         LRCKx2_p1 <= LRCKx2_I;
         LRCKx2_p2 <= LRCKx2_p1;
-        BCKx2_p1  <= (ROM_ADDR_WIDTH >= 8) ? BCKx2_I : 1'b0; // Change BCKx2 Input (2023/11/26)
-        BCKx2_p2  <= (ROM_ADDR_WIDTH >= 8) ? BCKx2_p1 : 1'b0; // Change BCKx2 Input (2023/11/26)
+        BCKx2_p1  <= (ROM_ADDR_WIDTH >= 8) ? BCKx2_I : 1'b0;
+        BCKx2_p2  <= (ROM_ADDR_WIDTH >= 8) ? BCKx2_p1 : 1'b0;
         DATAI_p1  <= DATA_I;
         COEF_p1   <= COEF_I;
         DATAO_p1  <= (NRST_I == 1'b0) ? {(DATA_WIDTH+COEF_WIDTH){1'b0}} : MULT_WIRE;
@@ -96,7 +96,7 @@ module MULT #(
     assign MULT_WIRE = DATAI_p1 * COEF_p1;
 
     assign LRCKx2_O  = LRCKx2_p2;
-    assign BCKx2_O   = (ROM_ADDR_WIDTH >= 8) ? BCKx2_p2 : MCLK_I; // Change BCKx2_O Output assignment (2023/11/26)
+    assign BCKx2_O   = (ROM_ADDR_WIDTH >= 8) ? BCKx2_p2 : MCLK_I;
     assign DATA_O    = DATAO_p1;
 
 endmodule

@@ -3,9 +3,9 @@
 *
 * Multiplied Data Integrator w/ input & output register.
 *
-* Version: 1.02
+* Version: 1.11
 * Author : AUDIY
-* Date   : 2025/06/22
+* Date   : 2025/06/23
 *
 * Port
 *   Input
@@ -77,7 +77,7 @@ module ADD #(
     always @ (posedge MCLK_I) begin
         MULT_REG  <= MULT_I;
         LRCKx2_REG <= LRCKx2_I;
-        BCKx2_REG  <= (RAM_ADDR_WIDTH >= 7) ? BCKx2_I : 1'b0; // Change BCKx2 input (2023/11/26)
+        BCKx2_REG  <= (RAM_ADDR_WIDTH >= 7) ? BCKx2_I : 1'b0;
 
         if (~LRCKx2_I & LRCKx2_REG == 1'b1) begin
             /* Negedge of LRCKx2: Reset Adder. */
@@ -92,7 +92,7 @@ module ADD #(
     /* Output Assign */
     assign ADD_O    = ADDO_REG;
     assign LRCKx2_O = LRCKx2_REG;
-    assign BCKx2_O  = (RAM_ADDR_WIDTH >= 7) ? BCKx2_REG : MCLK_I; // Change BCKx2 Output (2023/11/26)
+    assign BCKx2_O  = (RAM_ADDR_WIDTH >= 7) ? BCKx2_REG : MCLK_I;
 
 endmodule
 

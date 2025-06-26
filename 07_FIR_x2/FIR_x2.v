@@ -3,9 +3,9 @@
 *
 * Oversampling FIR Filter Module (Oversampling Ratio: x2)
 *
-* Version: 1.02
+* Version: 1.11
 * Author : AUDIY
-* Date   : 2025/06/22
+* Date   : 2025/06/23
 *
 * Port
 *   Input
@@ -66,7 +66,7 @@ module FIR_x2 #(
     input  wire signed [DATA_WIDTH-1:0] DATA_I,
 
     /* output Port Definition */
-    output wire                         BCKx2_O, // Add 2023/09/03
+    output wire                         BCKx2_O,
     output wire                         LRCKx2_O,
     output wire signed [DATA_WIDTH-1:0] DATA_O
 );
@@ -164,7 +164,7 @@ module FIR_x2 #(
         .BCKx2_O(BCKx2O_wire)
     );
 
-    /* Pipeline (Add 2023/11/08) */
+    /* Pipeline */
     always @ (posedge MCLK_I) begin
         BCKx2O_REG  <= BCKx2O_wire;
         LRCKx2O_REG <= LRCKx2O_wire;
@@ -172,7 +172,7 @@ module FIR_x2 #(
     end
 
     /* Output Assign */
-    assign BCKx2_O  = (WADDR_WIDTH >= 7) ? BCKx2O_REG : MCLK_I; // Change BCK Output (2023/11/26)
+    assign BCKx2_O  = (WADDR_WIDTH >= 7) ? BCKx2O_REG : MCLK_I;
     assign LRCKx2_O = LRCKx2O_REG;
     assign DATA_O   = DATAO_REG;
     

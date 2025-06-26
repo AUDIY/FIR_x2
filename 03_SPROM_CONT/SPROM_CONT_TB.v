@@ -3,9 +3,9 @@
 *
 * Test Bench for SPROM_CONT.v
 *
-* Version: 1.02
+* Version: 1.11
 * Author : AUDIY
-* Date   : 2025/06/22
+* Date   : 2025/06/23
 *
 * License
 --------------------------------------------------------------------------------
@@ -55,8 +55,8 @@ module SPROM_CONT_TB();
         .LRCK_I(LRCK_I),
         .NRST_I(NRST_I),
         .CADDR_O(CADDR_O),
-        .LRCKx_O(LRCKx_O), // Add LRCKx_O, 2023/08/12
-        .BCKx_O(BCKx_O)    // Add BCKx_O, 2023/09/03
+        .LRCKx_O(LRCKx_O),
+        .BCKx_O(BCKx_O)
     );
 
     initial begin

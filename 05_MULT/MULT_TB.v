@@ -3,9 +3,9 @@
 *
 * Test Bench for MULT.v
 *
-* Version: 1.02
+* Version: 1.11
 * Author : AUDIY
-* Date   : 2025/06/22
+* Date   : 2025/06/23
 *
 * License
 --------------------------------------------------------------------------------
@@ -92,7 +92,7 @@ module MULT_TB();
         .NRST_I(NRST_I),
         .COEF_O(COEF_O),
         .LRCKx2_O(LRCKx2),
-        .BCKx2_O(BCKx2) // Add BCKx2_O, 2023/09/03
+        .BCKx2_O(BCKx2)
     );
 
     /* MULT module (EUT) */
@@ -104,11 +104,11 @@ module MULT_TB();
         .DATA_I(PCM_O),
         .COEF_I(COEF_O),
         .LRCKx2_I(LRCKx2),
-        .BCKx2_I(BCKx2),  // Add BCKx2_I, 2023/09/03
+        .BCKx2_I(BCKx2),
         .NRST_I(NRST_I),
         .DATA_O(MULT_O),
         .LRCKx2_O(LRCKx2_O),
-        .BCKx2_O(BCKx2_O) // Add BCKx2_O, 2023/09/03
+        .BCKx2_O(BCKx2_O)
     );
     
     /* Test bench */

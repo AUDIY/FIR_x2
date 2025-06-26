@@ -3,9 +3,9 @@
 *
 * FIR Coefficients ROM.
 *
-* Version: 1.02
+* Version: 1.11
 * Author : AUDIY
-* Date   : 2025/06/22
+* Date   : 2025/06/23
 *
 * Port
 *   Input
@@ -16,8 +16,8 @@
 *
 *   Output
 *       COEF_O       : FIR Filter Coefficient Output
-*       LRCKx2_O     : x2 LRCK Output (Added 2023/08/12)
-*       BCKx2_O      : x2 BCK Output (Added 2023/09/03)
+*       LRCKx2_O     : x2 LRCK Output
+*       BCKx2_O      : x2 BCK Output
 *
 * Parameter
 *       DATA_WITDH   : Coefficient DATA Width
@@ -64,17 +64,17 @@ module FIR_COEF #(
 
     /* Output Port Definition */
     output wire signed [DATA_WIDTH-1:0] COEF_O,
-    output wire                         LRCKx2_O, // Add 2023/08/12
-    output wire                         BCKx2_O  // Add 2023/09/03
+    output wire                         LRCKx2_O,
+    output wire                         BCKx2_O
 );
 
     /* Internal Register/Wire Definition */
     wire                  LRCKx_O;
-    reg                   LRCKx2_p1 = 1'b1; // Add 2023/08/12
-    reg                   LRCKx2_p2 = 1'b1; // Add 2023/08/12
+    reg                   LRCKx2_p1 = 1'b1;
+    reg                   LRCKx2_p2 = 1'b1;
     wire                  BCKx_O;
-    reg                   BCKx2_p1  = 1'b1; // Add 2023/09/03
-    reg                   BCKx2_p2  = 1'b1; // Add 2023/09/03
+    reg                   BCKx2_p1  = 1'b1;
+    reg                   BCKx2_p2  = 1'b1;
     wire [ADDR_WIDTH-1:0] CADDR;
     
 
@@ -103,23 +103,23 @@ module FIR_COEF #(
         .RDATA_O(COEF_O)
     );
 
-    /* Add LRCKx_O Output Register, 2023/08/12 */
+    /* Add LRCKx_O Output Register */
     always @ (posedge MCLK_I) begin
         LRCKx2_p1 <= LRCKx_O;
         LRCKx2_p2 <= LRCKx2_p1;
 
-        /* Add BCKx_O Output Register, 2023/09/03 */
-        BCKx2_p1  <= (ADDR_WIDTH >= 8) ? BCKx_O : 1'b0; // Change BCKx2 Generation (2023/11/26)
+        /* Add BCKx_O Output Register */
+        BCKx2_p1  <= (ADDR_WIDTH >= 8) ? BCKx_O : 1'b0; // Change BCKx2 Generation
         BCKx2_p2  <= BCKx2_p1; 
     end
 
     generate
         if (OUTPUT_REG == "TRUE") begin : gen_regtrue
             assign LRCKx2_O = LRCKx2_p2;
-            assign BCKx2_O  = (ADDR_WIDTH >= 8) ? BCKx2_p2 : MCLK_I; // Change BCKx2_O Generation (2023/11/26)
+            assign BCKx2_O  = (ADDR_WIDTH >= 8) ? BCKx2_p2 : MCLK_I; // Change BCKx2_O Generation
         end else begin : gen_regfalse
             assign LRCKx2_O = LRCKx2_p1;
-            assign BCKx2_O  = (ADDR_WIDTH >= 8) ? BCKx2_p1 : MCLK_I; // Change BCKx2_O Generation (2023/11/26)
+            assign BCKx2_O  = (ADDR_WIDTH >= 8) ? BCKx2_p1 : MCLK_I; // Change BCKx2_O Generation
         end
     endgenerate
 
