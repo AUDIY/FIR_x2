@@ -27,9 +27,11 @@ https://audio-diy.hatenablog.com/entry/FIR_x2_howtouse
 
 ## Verified Devices
 1. Intel Cyclone 10 LP 10CL025YU256I7G on Intel Cyclone 10 LP FPGA Evaluation Kit EK-10CL025U256 ( https://www.intel.com/content/www/us/en/products/details/fpga/development-kits/cyclone/10-lp-evaluation-kit.html )
+2. Intel Cyclone IV E EP4CE22F17C6N on Terasic DE0-Nano ( https://www.terasic.com.tw/cgi-bin/page/archive.pl?No=593 )
 
 ## Examples
 1. [Oversample_x2_EK10CL025.qar for Cyclone 10 LP FPGA Evaluation Kit EK-10CL025U256 & Quartus Prime Lite v24.1](/10_Example/01_EK-10CL025U256)
+2. [Oversample_x2_DE0-Nano.qar for DE0-Nano & Quartus Prime Lite v24.1](/10_Example/02_DE0-Nano)
 
 ## License
 Copyright AUDIY 2023 - 2025.
