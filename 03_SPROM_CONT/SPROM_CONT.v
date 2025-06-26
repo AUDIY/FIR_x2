@@ -3,9 +3,9 @@
 *
 * Single Port ROM Controller to Output Filter Coefficients.
 *
-* Version: 1.02
+* Version: 1.11
 * Author : AUDIY
-* Date   : 2025/06/22
+* Date   : 2025/06/23
 *
 * Port
 *   Input
@@ -58,8 +58,8 @@ module SPROM_CONT #(
 
     /* Output Definition */
     output wire [ROM_ADDR_WIDTH-1:0] CADDR_O,
-    output wire                      LRCKx_O, // Added 2023/08/12
-    output wire                      BCKx_O   // Added 2023/09/03
+    output wire                      LRCKx_O,
+    output wire                      BCKx_O
 );
 
     /* Internal Wire/Register Definition */
@@ -83,20 +83,20 @@ module SPROM_CONT #(
             /* Change Initial Address */
             CADDR_REG <= {{(ROM_ADDR_WIDTH-1){1'b0}}, 1'b1};
         end else begin
-            /* Change Odd & Even (2023/11/25) */
+            /* Change Odd & Even */
             CADDR_REG <= {(CADDR_REG[ROM_ADDR_WIDTH-1:1] + 1'b1), LRCK_I};
         end
 
-        /* Output Pipeline with positive edge. (2023/11/08) */
+        /* Output Pipeline with positive edge. */
         CADDRO_REG <= {ROM_ADDR_WIDTH{1'b1}} - CADDR_REG;
         LRCKx_REG  <= CADDR_REG[ROM_ADDR_WIDTH-1];
         BCKx_REG   <= (ROM_ADDR_WIDTH >= 8) ? CADDR_REG[ROM_ADDR_WIDTH-7] : 1'b0;
     end
 
-    /* Output Assign (Changed 2023/11/08) */
+    /* Output Assign */
     assign CADDR_O = CADDRO_REG;
     assign LRCKx_O = LRCKx_REG;
-    assign BCKx_O  = (ROM_ADDR_WIDTH >= 7) ? BCKx_REG : MCLK_I; // Change BCK Generation (2023/11/26)
+    assign BCKx_O  = (ROM_ADDR_WIDTH >= 7) ? BCKx_REG : MCLK_I; // Change BCK Generation
 
 endmodule
 
