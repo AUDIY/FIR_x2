@@ -3,9 +3,9 @@
 * 
 * Test Bench for FIR_COEF.v
 *
-* Version: 1.02
+* Version: 1.11
 * Author : AUDIY
-* Date   : 2025/06/22
+* Date   : 2025/06/23
 *
 * License
 --------------------------------------------------------------------------------
@@ -47,8 +47,8 @@ module FIR_COEF_TB();
     reg  NRST_I = 1'b1;
 
     wire signed [DATA_WIDTH-1:0] COEF_O;
-    wire                         LRCKx2_O; // Add 2023/08/12
-    wire                         BCKx2_O;  // Add 2023/09/03
+    wire                         LRCKx2_O;
+    wire                         BCKx2_O;
 
     reg [8:0] MCLK_REG = {9{1'b0}};
 
@@ -64,8 +64,8 @@ module FIR_COEF_TB();
         .LRCK_I(LRCK_I),
         .NRST_I(NRST_I),
         .COEF_O(COEF_O),
-        .LRCKx2_O(LRCKx2_O), // Add 2023/08/12
-        .BCKx2_O(BCKx2_O) // Add 2023/09/03
+        .LRCKx2_O(LRCKx2_O),
+        .BCKx2_O(BCKx2_O)
     );
 
     initial begin
