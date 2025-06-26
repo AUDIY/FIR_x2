@@ -26,10 +26,10 @@ https://audio-diy.hatenablog.com/entry/FIR_x2_howtouse
 3. When you use in vivado, memory file(.hex) should be changed to data file(.data). 
 
 ## Verified Devices
-No verified device in this version.
+1. Intel Cyclone 10 LP 10CL025YU256I7G on Intel Cyclone 10 LP FPGA Evaluation Kit EK-10CL025U256 ( https://www.intel.com/content/www/us/en/products/details/fpga/development-kits/cyclone/10-lp-evaluation-kit.html )
 
 ## Examples
-No examples in this version.
+1. [Oversample_x2_EK10CL025.qar for Cyclone 10 LP FPGA Evaluation Kit EK-10CL025U256 & Quartus Prime Lite v24.1](/10_Example/01_EK-10CL025U256)
 
 ## License
 Copyright AUDIY 2023 - 2025.
