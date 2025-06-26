@@ -3,9 +3,9 @@
 *
 * Simple Dual Port RAM Controller to operate as Ring-Buffer.
 *
-* Version: 1.02
+* Version: 1.11
 * Author : AUDIY
-* Date   : 2025/06/22
+* Date   : 2025/06/23
 *
 * Port
 *   Input

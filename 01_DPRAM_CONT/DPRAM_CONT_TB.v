@@ -3,9 +3,9 @@
 *
 * Test Bench for DPRAM_CONT.v
 *
-* Version: 1.02
+* Version: 1.11
 * Author : AUDIY
-* Date   : 2025/06/22
+* Date   : 2025/06/23
 *
 * License
 --------------------------------------------------------------------------------
@@ -55,7 +55,6 @@ module DPRAM_CONT_TB();
         .ADDR_WIDTH(ADDR_WIDTH)
     ) u1 (
         .MCLK_I(MCLK_I),
-        //.BCK_I( ),
         .LRCK_I(LRCK_I),
         .NRST_I(NRST_I),
         .WEN_O(WEN_O),
