@@ -14,7 +14,7 @@ https://audio-diy.hatenablog.com/entry/FIR_x2_howtouse
 2. If the number of coefficients is odd, prepend a zero to make the count even.
 3. Convert the signed decimal numbers into hexadecimal format using 2's complement representation.  
 
-If you would like more details, please refer to the [Intro_fir_gen.md](./11_fir_gen/Intro_fir_gen.md) in the [11_fir_gen](./11_fir_gen) directory.
+If you would like more details, please refer to the [README.md](./11_fir_gen/README.md) in the [11_fir_gen](./11_fir_gen) directory.
 
 ### Simulation
 1. Compile each module and <module_name>_tb.v (memory initialization file & test signals are necessary on some modules).
