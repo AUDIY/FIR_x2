@@ -9,6 +9,13 @@ https://audio-diy.hatenablog.com/entry/FIR_x2_summary
 https://audio-diy.hatenablog.com/entry/FIR_x2_howtouse
 
 ## Usage
+### Custom FIR filter generation
+1. Generate the signed integer FIR filter using like Python or MATLAB.
+2. If the number of coefficients is odd, prepend a zero to make the count even.
+3. Convert the signed decimal numbers into hexadecimal format using 2's complement representation.  
+
+If you would like more details, please refer to the [Intro_fir_gen.md](./11_fir_gen/Intro_fir_gen.md) in the [11_fir_gen](./11_fir_gen) directory.
+
 ### Simulation
 1. Compile each module and <module_name>_tb.v (memory initialization file & test signals are necessary on some modules).
 2. If you use Questa advanced simulator, you can use the batch file in the "Questa" directory in each module.
