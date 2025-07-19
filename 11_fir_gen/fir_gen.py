@@ -25,7 +25,7 @@ coef_int = np.insert(coef_int, 0, 0)
 # Overflow Detection
 Total_Odd = np.sum(coef_int[1::2])
 Total_Even = np.sum(coef_int[0::2])
-MAX_TOTAL = 2**(BIT - 1) - 1
+MAX_TOTAL = 2**(BIT - 2) - 1
 
 print('Total of Odd taps :', Total_Odd, end='')
 print(' [OK ( <= ' if Total_Odd <= MAX_TOTAL else ' [NG! ( > ', end='')
