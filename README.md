@@ -51,7 +51,7 @@ These sample projects oversample 44.1/48kHz PCM to 88.2/96kHz PCM.
 4. [Oversample_x2_T20F256DevKit.zip for Trion T20 BGA256 Development Kit & Efinity 2025.1.110.2.15](/10_Example/04_T20F256DevKit)
 5. [Oversample_x2_Cmod-A7.xpr.zip for Cmod-A7 & Vivado 2025.1](/10_Example/05_Cmod-A7)
 6. [Oversample_x2_Cmod-S7.xpr.zip for Cmod-S7 & Vivado 2025.1](/10_Example/06_Cmod-S7)
-7. [Oversample_x2_TangPrimer20K.gar & Gowin FPGA Designer v1.9.11.01 Education](/10_Example/07_TangPrimer20K)
+7. [Oversample_x2_TangPrimer20K.gar for Tang Primer 20K & Gowin FPGA Designer v1.9.11.01 Education](/10_Example/07_TangPrimer20K)
 
 ## License
 Copyright AUDIY 2023 - 2025.
