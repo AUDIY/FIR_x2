@@ -41,14 +41,17 @@ If you would like more details, please refer to the [README.md](./11_fir_gen/REA
 4. Efinix Trion T20F256I4 on [Efinix Trion T20 BGA256 Development Kit](https://www.efinixinc.com/products-devkits-triont20.html)
 5. AMD Artix-7 XC7A35T-1CPG236C on [Digilent Cmod A7](https://digilent.com/reference/programmable-logic/cmod-a7/start)
 6. AMD Spartan-7 XC7S25-1CSGA225C on [Digilent Cmod S7](https://digilent.com/reference/programmable-logic/cmod-s7/start)
+7. Gowin Arora GW2A-LV18PG256C8/I7 on [Sipeed Tang Primer 20K + Dock](https://wiki.sipeed.com/hardware/en/tang/tang-primer-20k/primer-20k.html#Dock-ext-board-appearance)
 
 ## Examples
+These sample projects oversample 44.1/48kHz PCM to 88.2/96kHz PCM.
 1. [Oversample_x2_EK10CL025.qar for Cyclone 10 LP FPGA Evaluation Kit EK-10CL025U256 & Quartus Prime Lite v24.1](/10_Example/01_EK-10CL025U256)
 2. [Oversample_x2_DE0-Nano.qar for DE0-Nano & Quartus Prime Lite v24.1](/10_Example/02_DE0-Nano)
 3. [Oversample_x2_DE10-Lite.qar for DE10-Lite & Quartus Prime Lite v24.1](/10_Example/03_DE10-Lite)
 4. [Oversample_x2_T20F256DevKit.zip for Trion T20 BGA256 Development Kit & Efinity 2025.1.110.2.15](/10_Example/04_T20F256DevKit)
 5. [Oversample_x2_Cmod-A7.xpr.zip for Cmod-A7 & Vivado 2025.1](/10_Example/05_Cmod-A7)
 6. [Oversample_x2_Cmod-S7.xpr.zip for Cmod-S7 & Vivado 2025.1](/10_Example/06_Cmod-S7)
+7. [Oversample_x2_TangPrimer20K.gar & Gowin FPGA Designer v1.9.11.01 Education](/10_Example/07_TangPrimer20K)
 
 ## License
 Copyright AUDIY 2023 - 2025.
