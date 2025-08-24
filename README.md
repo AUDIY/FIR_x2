@@ -40,6 +40,7 @@ If you would like more details, please refer to the [README.md](./11_fir_gen/REA
 3. Altera MAX 10 10M50DAF484C7G on [Terasic DE10-Lite](https://www.terasic.com.tw/cgi-bin/page/archive.pl?Language=English&CategoryNo=234&No=1021)
 4. Efinix Trion T20F256I4 on [Efinix Trion T20 BGA256 Development Kit](https://www.efinixinc.com/products-devkits-triont20.html)
 5. AMD Artix-7 XC7A35T-1CPG236C on [Digilent Cmod A7](https://digilent.com/reference/programmable-logic/cmod-a7/start)
+6. AMD Spartan-7 XC7S25-1CSGA225C on [Digilent Cmod S7](https://digilent.com/reference/programmable-logic/cmod-s7/start)
 
 ## Examples
 1. [Oversample_x2_EK10CL025.qar for Cyclone 10 LP FPGA Evaluation Kit EK-10CL025U256 & Quartus Prime Lite v24.1](/10_Example/01_EK-10CL025U256)
@@ -47,6 +48,7 @@ If you would like more details, please refer to the [README.md](./11_fir_gen/REA
 3. [Oversample_x2_DE10-Lite.qar for DE10-Lite & Quartus Prime Lite v24.1](/10_Example/03_DE10-Lite)
 4. [Oversample_x2_T20F256DevKit.zip for Trion T20 BGA256 Development Kit & Efinity 2025.1.110.2.15](/10_Example/04_T20F256DevKit)
 5. [Oversample_x2_Cmod-A7.xpr.zip for Cmod-A7 & Vivado 2025.1](/10_Example/05_Cmod-A7)
+6. [Oversample_x2_Cmod-S7.xpr.zip for Cmod-S7 & Vivado 2025.1](/10_Example/06_Cmod-S7)
 
 ## License
 Copyright AUDIY 2023 - 2025.
