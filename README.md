@@ -30,7 +30,7 @@ If you would like more details, please refer to the [README.md](./11_fir_gen/REA
 4. Confirm actual operation.
 
 ## Notes
-1. Single-Port ROM (SPROM.v) & Simple Dual-Port RAM (SDPRAM_SINGLECLK.v) are provided but it is recommended to use each-vendor official IP.
+1. Single-Port ROM (SPROM.v) & Simple Dual-Port RAM (SDPRAM_SINGLECLK.v) are provided from [AUDIY_Verilog_IP](https://github.com/AUDIY/AUDIY_Verilog_IP) but it is recommended to use each-vendor official IP.
 2. FIR filter length must be equals to (MCLK_I frequency)/(Sampling frequency)
 3. When you use in vivado, memory file(.hex) should be changed to data file(.data). 
 
