@@ -2,6 +2,14 @@
 FPGA based PCM oversampling FIR filter (oversample ratio: 2).  
 ![Image 1](/Images/image1.png)
 
+## ⚠️ Project Status Update
+**[FIR_x2](https://github.com/AUDIY/FIR_x2) is no longer under active development and will be archived soon.**  
+
+Until the archive process is complete, minor bug fixes may still be applied to sample projects and individual modules. However, no new features will be introduced.  
+Stay tuned for a successor project that will build upon FIR_x2’s foundation and offer new improvements.  
+
+**We sincerely appreciate everyone who has starred, forked, or simply followed this repository — thank you for your support and interest in [FIR_x2](https://github.com/AUDIY/FIR_x2).**
+
 ## Japanese Page
 ### Summary
 https://audio-diy.hatenablog.com/entry/FIR_x2_summary
@@ -30,7 +38,7 @@ If you would like more details, please refer to the [README.md](./11_fir_gen/REA
 4. Confirm actual operation.
 
 ## Notes
-1. Single-Port ROM (SPROM.v) & Simple Dual-Port RAM (SDPRAM_SINGLECLK.v) are provided but it is recommended to use each-vendor official IP.
+1. Single-Port ROM (SPROM.v) & Simple Dual-Port RAM (SDPRAM_SINGLECLK.v) are provided from [AUDIY_Verilog_IP](https://github.com/AUDIY/AUDIY_Verilog_IP) but it is recommended to use each-vendor official IP.
 2. FIR filter length must be equals to (MCLK_I frequency)/(Sampling frequency)
 3. When you use in vivado, memory file(.hex) should be changed to data file(.data). 
 
