@@ -56,7 +56,7 @@ These sample projects oversample 44.1/48kHz PCM to 88.2/96kHz PCM.
 1. [Oversample_x2_EK10CL025.qar for Cyclone 10 LP FPGA Evaluation Kit EK-10CL025U256 & Quartus Prime Lite v24.1](/10_Example/01_EK-10CL025U256)
 2. [Oversample_x2_DE0-Nano.qar for DE0-Nano & Quartus Prime Lite v24.1](/10_Example/02_DE0-Nano)
 3. [Oversample_x2_DE10-Lite.qar for DE10-Lite & Quartus Prime Lite v24.1](/10_Example/03_DE10-Lite)
-4. [Oversample_x2_T20F256DevKit.zip for Trion T20 BGA256 Development Kit & Efinity 2025.1.110.2.15](/10_Example/04_T20F256DevKit)
+4. [Oversample_x2_T20F256DevKit.zip for Trion T20 BGA256 Development Kit & Efinity 2025.1.110.4.9](/10_Example/04_T20F256DevKit)
 5. [Oversample_x2_Cmod-A7.xpr.zip for Cmod-A7 & Vivado 2025.1](/10_Example/05_Cmod-A7)
 6. [Oversample_x2_Cmod-S7.xpr.zip for Cmod-S7 & Vivado 2025.1](/10_Example/06_Cmod-S7)
 7. [Oversample_x2_TangPrimer20K.gar for Tang Primer 20K & Gowin FPGA Designer v1.9.11.01 Education](/10_Example/07_TangPrimer20K)
