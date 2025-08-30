@@ -3,10 +3,11 @@ FPGA based PCM oversampling FIR filter (oversample ratio: 2).
 ![Image 1](/Images/image1.png)
 
 ## ⚠️ Project Status Update
-**[FIR_x2](https://github.com/AUDIY/FIR_x2) is no longer under active development and will be archived soon.**  
+**[FIR_x2](https://github.com/AUDIY/FIR_x2) is NO LONGER MAINTAINED and will be archived soon.**  
 
-Until the archive process is complete, minor bug fixes may still be applied to sample projects and individual modules. However, no new features will be introduced.  
-Stay tuned for a successor project that will build upon FIR_x2’s foundation and offer new improvements.  
+Once the successor project is released, this repository will be archived.  
+Until then, minor updates such as license adjustments and creation of Releases may occur, but no changes will be made to the source code itself, including bug fixes.  
+Please look forward to the upcoming successor project, which will expand upon the features of FIR_x2.  
 
 **We sincerely appreciate everyone who has starred, forked, or simply followed this repository — thank you for your support and interest in [FIR_x2](https://github.com/AUDIY/FIR_x2).**
 
