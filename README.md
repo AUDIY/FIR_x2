@@ -63,7 +63,7 @@ These sample projects oversample 44.1/48kHz PCM to 88.2/96kHz PCM.
 7. [Oversample_x2_TangPrimer20K.gar for Tang Primer 20K & Gowin FPGA Designer v1.9.11.01 Education](/10_Example/07_TangPrimer20K)
 
 ## License
-Copyright AUDIY 2023 - 2025.
+Copyright AUDIY 2023 - 2026.
 
 This source describes Open Hardware and is licensed under the CERN-OHL-W v2
 
