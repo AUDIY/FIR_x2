@@ -3,7 +3,7 @@
 *
 * PCM DATA & Digital Filter Multiplier w/ input & output register.
 *
-* Version: 2.06
+* Version: 2.02
 * Author : AUDIY
 * Date   : 2026/04/13
 *
