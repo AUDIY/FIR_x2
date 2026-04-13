@@ -3,9 +3,9 @@
 *
 * Single Port ROM Controller to Output Filter Coefficients.
 *
-* Version: 2.00
+* Version: 2.02
 * Author : AUDIY
-* Date   : 2025/08/27
+* Date   : 2026/04/13
 *
 * Port
 *   Input
@@ -29,7 +29,7 @@
 | This source describes Open Hardware and is licensed under the CERN-OHL-W v2. |
 |                                                                              |
 | You may redistribute and modify this source and make products using it under |
-| the terms of the CERN-OHL-W v2 (https:/cern.ch/cern-ohl).                    |
+| the terms of the CERN-OHL-W v2 (https://cern.ch/cern-ohl).                   |
 |                                                                              |
 | This source is distributed WITHOUT ANY EXPRESS OR IMPLIED WARRANTY,          |
 | INCLUDING OF MERCHANTABILITY, SATISFACTORY QUALITY AND FITNESS FOR A         |
