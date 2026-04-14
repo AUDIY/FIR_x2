@@ -28,7 +28,7 @@
 | This source describes Open Hardware and is licensed under the CERN-OHL-P v2. |
 |                                                                              |
 | You may redistribute and modify this source and make products using it under |
-| the terms of the CERN-OHL-P v2 (https:/cern.ch/cern-ohl).                    |
+| the terms of the CERN-OHL-P v2 (https://cern.ch/cern-ohl).                   |
 |                                                                              |
 | This source is distributed WITHOUT ANY EXPRESS OR IMPLIED WARRANTY,          |
 | INCLUDING OF MERCHANTABILITY, SATISFACTORY QUALITY AND FITNESS FOR A         |
